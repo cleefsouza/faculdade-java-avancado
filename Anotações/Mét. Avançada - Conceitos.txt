@@ -1,0 +1,130 @@
+METODOLOGIA AVANÇADA - JAVA
+
+Relembrando:
+
+Como funciona o Java?
+Você sabe o que é JVM, JRE, JDK, JavaC, bytecode?
+
+O JavaC (Java Compiler) vai transformar o Código Fonte Java em Bytecode, um código específico que vai executar em uma Máquina Virtual Java (Java Virtual Machine - JVM).
+Uma JVM é uma solução de software capaz de executar bytecode em qualquer máquina, independente da plataforma que o Código Fonte foi compilado. Java é multiplataforma sem a necessidade de recompilação.
+A JVM é composta por várias partes internas, como por exemplo Loader, Verificador, Interpretador, Gerenciador de Memória e Compilador JIT (Just in Time).
+
+Atualmente existem JVMs em várias plataformas, como Computadores Pessoais (Windows, Linux, MacOS), dispositivos móveis (Android) e até mesmo os modernos wearables (relógios inteligentes, óculos inteligentes).
+O princípio de funcionamento desse mecanismo explicado acima é conhecido pela sigla WORA (Write Once Run Anywhere) que significa “Escreva uma vez, execute em qualquer lugar”.
+
+- JRE (Java Runtime Environment) é um conjunto de software que forma um ambiente para a execução de bytecodes feitos em Java. Ela é composta da JVM e bibliotecas adicionais.
+
+- JDK (Java Development Kit) é um conjunto de programas que todo programador Java deve ter. Ele é um kit de desenvolvimento Java composto pela JRE (item acima), o JavaLang, o JavaTools (JavaC, Debugger, APIs). Além disso, você ainda pode adicionar uma IDE para facilitar o desenvolvimento Java.
+
+
+Paradigma de Programação Orientada a Objetos:
+	Programas organizados por meio de classes, as quais especificam o comportamento do objeto que controlam as ações do programa
+
+- Classes e Objetos
+	Classes são usadas para abstrair conceitos do mundo real.
+	Exemplo: Uma classe que representa um aluno em uma academia.
+
+	Antes de um objeto ser criado, devemos definir quais serão os seus atributos e métodos.
+	Essa definição é realizada através de uma "classe" elaborada por um programador.
+	A partir de uma classe, podemos construir objetos na memória do computador que executa a nossa aplicação.
+	Toda classe possui três tipos de membros: Campos/Atributos/Variáveis, Métodos e Construtores.
+	
+	Após definir a classe, podemos criar objetos a partir dela.
+	Para criar um objeto é necessário utilizar a palavra reservada "new", "new NomeDaClasse()".
+
+- Atributos, Métodos e Construtores
+	Atributos/Variáveis são os dados definidos pela classe.
+	Métodos são os códigos que operam sobre esses dados.
+	Construtores são métodos usados para criar um objeto; geralmente é utilizado para inicialização de valores na classe.
+
+- Modificadores de Acesso
+	São usados em declarações de classes, campos, construtores, métodos e variáveis locais.
+	
+	Modificadores de classe:
+		abstract - A classe não pode ser instanciada;
+		final - A classe não pode ser estendida;
+		public - Ela pode ser visualizada por qualquer outra classe.
+
+	Modificadores de atributos:
+		final	 - Ele deve ser inicializado e não pode ser alterado;
+		private - Ele é acessível apenas dentro da própria classe;
+		protected - Ele é acessível dentro da sua própria classe e extensões;
+		public - Ele é acessível a partir de todas as classes;
+		static - A mesma memoria é usada para todas as instãncias da classe;
+		transient - Ele não faz parte do estado persistente de um objeto;
+		voltile - Ele pode ser modificao por threads assíncronas.
+
+	Modificadores de construtor:
+		private - Ele é acessível dentro de sua própria classe;
+		protected - Ele é acessível dentro da própria classe e extenções;
+		public - Ele é acessível a partir de todas as classes.
+
+	Modificadores de Métodos:
+		final	 - Ele deve ser inicializado e não pode ser alterado;
+		native - Seu corpo é implementado em outra linguagem de programação;
+		private - Ele é acessível apenas dentro da própria classe;
+		protected - Ele é acessível dentro da sua própria classe e extensões;
+		public - Ele é acessível a partir de todas as classes;
+		static - A mesma memoria é usada para todas as instãncias da classe;
+		synchronized - Ele deve ser bloqueado antes de ser invocado por uma thread;
+		voltile - Ele pode ser modificao por threads assíncronas.
+
+- Encapsulamento
+	A capacidade de ocultar dados (acesso direto aos mesmos) dentro classes, permitindo que apenas operações especializadas ou dedicadas manipulem os dados ocultos;
+	é um dos benefícios mais palpaveis de programação orientada a objetos.
+	
+	Classes que encapsulam os dados possibilitam a criação de programas com menos erros e maior clareza.
+	Encapsulamento de dados em modelos deve ser um dos principais objetivos do programador que use linguagem O. Objetos.
+
+	O encapsulamento favorece principalmente dois aspectos de um sistema: a manutenção e o desenvolvimento.
+	
+- Objeto String
+	Uma String é uma sequência de caracteres. Palavras frases ou nomes são Strings.
+	As strings são imutáveis, ou seja, não podem ser alteradas.
+
+- Sobrecarga de Métodos
+	Quando dois ou mais métodos são definidos na mesma classe com o mesmo nome, dizemos que houve uma sobrecarga de métodos.
+	Uma sobrecarga de métodos só é válida se as listas de parâmetros dos métodos são diferentes entre si.
+	Exemplo:
+		public void alterar(String nome);
+		public void alterar(int idade);
+	Perceba que os parametros são diferentes.
+
+- Sobrescrita de Métodos
+	A sobrescrita (ou override) está diretamente relacionada à orientação a objetos, mais especificamente com a herança. Com a sobrescrita, conseguimos especializar os métodos
+	herdados das superclasses, alterando o seu comportamento nas subclasses por um mais específico.
+	A sobrescrita de métodos consiste basicamente em criar um novo método na classe filha contendo a mesma assinatura e mesmo tipo de retorno do método sobrescrito.
+
+- Métodos e Atributos Estáticos
+	Atributos estáticos em uma classe são compartilhados por todas as instâncias dessa classe, ou seja,
+	somente um valor será armazenado em um atributo estático, e caso esse valor seja modificado por uma das instâncias dessa classe, a modificação será refletida em todas as outras instâncias dessa classe.
+
+- Classes Pré-definidas (Biblioteca)
+
+- Composição
+	É a criação de uma classe usando outra classe como seu componente de dados.
+	É muito usada para a reutilização de código.
+
+- Herança:
+	Técnica de criar uma nova classe a partir de uma classe existente, adicionando mais funcionalidade a ela.
+	É possivel dizer que a nova classe herda toda a funcionalidade da classe existente, ou seja, ela mais especializada.
+	A idei é reaproveitar o máximo do código já criado. Essa ideia está diretamente relacionada ao conceito "Don't Repeat Yourself".
+	Exemplo: PESSOA (classe pai/superclasse) <--- Funcionário (classe filho/subclasse que herda suas caracteristicas)
+
+	Quando temos uma herança, as chamadas dos construtores são mais complexas.
+	O metodo "super()" deve ser chamado no construtor da subclasse, para que o construtor da superclasse seja chamado (o construtor da superclasse é chamado primeiro que o da subclasse).
+
+- Polimorfismo
+	De forma generica o polimorfismo significa várias formas.
+	O mecanismo herança permite a criação de classes a partir de outras já existentes, com relação "é um tipo de".
+	De forma que a partir de uma classe genérica, classes mais especializadas podem ser criadas.
+	A relação "é um tipo de" define uma característica fundamental de linguagens orientadas a objetos: polimorfismo.
+
+- Classe Abstrata
+	A classe abstrata serve como um modelo a ser seguido.
+	Por classes abstratas possuírem métodos que não possuem um escopo concreto, elas não podem ser instancia.das
+	Uma classe abstrata pode possuir métodos abstratos, ou seja, métodos que apenas possuem suas especificações e são obrigados a serem sobrescritos pelas subclasses.
+
+- Interface
+- Tratamento de Exceções
+- Coleções
