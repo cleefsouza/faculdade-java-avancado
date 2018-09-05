@@ -46,7 +46,7 @@ Paradigma de Programação Orientada a Objetos:
 		public - Ela pode ser visualizada por qualquer outra classe.
 
 	Modificadores de atributos:
-		final	 - Ele deve ser inicializado e não pode ser alterado;
+		final - Ele deve ser inicializado e não pode ser alterado;
 		private - Ele é acessível apenas dentro da própria classe;
 		protected - Ele é acessível dentro da sua própria classe e extensões;
 		public - Ele é acessível a partir de todas as classes;
@@ -60,7 +60,7 @@ Paradigma de Programação Orientada a Objetos:
 		public - Ele é acessível a partir de todas as classes.
 
 	Modificadores de Métodos:
-		final	 - Ele deve ser inicializado e não pode ser alterado;
+		final - Ele deve ser inicializado e não pode ser alterado;
 		native - Seu corpo é implementado em outra linguagem de programação;
 		private - Ele é acessível apenas dentro da própria classe;
 		protected - Ele é acessível dentro da sua própria classe e extensões;
@@ -136,3 +136,36 @@ Paradigma de Programação Orientada a Objetos:
 	As notificação de uma exceção é dada por uma classe chamada Throwable que é definida pela API do Java e define todos os erros e exceções.
 
 - Coleções
+	Originalmente, o Java possuía duas classes de coleção de objetos: Vector(Lista de Objetos) e HashTable (Tabela de Associação). Devido a certas limitações destas classes, foi desenvolvido o Java Collections Framework.
+	- Collection<E>
+
+		- List<E> é uma coleção indexada de objetos
+			- ArrayList<E> um array unidimensional não ordenado.
+				- Elementos são armazenados de forma contígua em um array.
+				- Acesso indexado rápido.
+				- Inserções e remoções no meio da lista são lentos.
+
+			- LinkedList<E> uma lista duplamente ligada cujos  elementos podem ser inseridos e mantidos ordenados.
+				- Elementos são armazenados na forma de uma lista duplamente encadeada.
+				- Acesso indexado péssimo. Precisa percorrer toda a lista.
+				- Inserções e remoções no meio da lista são rápidas.
+				- Perde em desempenho para operações de pesquisa e interação.
+
+			- Vector<E> um array unidimensional, mas cujas instâncias são sincronizadas.
+				- Elementos são armazenados de forma contígua em um array.
+				- Acesso indexado rápido.
+				- Inserções e remoções no meio da lista são lentos.
+				- Estrutura sincronizada (Thread Safe)
+
+			- Stack<E> uma subclasse de Vector<E> cujo os objetos podem ser tratados como uma pilha.
+				- Possui Vector como superclasse.
+				- Tamanho auto e ajustável.
+				- Estrutura sincronizada.
+				- Semântica não consistente.
+
+		- Set<E>
+			- SortedSet<E>
+		- Queue<E>
+
+	- Map<K, V>
+		- SortedMap<K, V>
