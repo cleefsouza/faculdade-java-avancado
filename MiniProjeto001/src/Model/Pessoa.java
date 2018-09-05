@@ -32,6 +32,4 @@ public class Pessoa {
 	public void setSituacaoPessoa(int situacaoPessoa) {
 		this.situacaoPessoa = situacaoPessoa;
 	}
-	
-	
 }

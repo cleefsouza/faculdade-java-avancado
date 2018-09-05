@@ -24,7 +24,5 @@ public class PessoaFisica extends Pessoa{
 	}
 	public void setRg(String rg) {
 		this.rg = rg;
-	}
-	
-	
+	}	
 }
