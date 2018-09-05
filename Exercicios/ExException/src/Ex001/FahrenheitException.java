@@ -1,7 +1,6 @@
 package Ex001;
 
 public class FahrenheitException extends TemperaturaException {
-
 	// Construtor
 	public FahrenheitException(String msg) {
 		super(msg); // Envia a mensagem recebida para a superclasse
