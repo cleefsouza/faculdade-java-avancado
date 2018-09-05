@@ -2,6 +2,11 @@ package Ex002;
 
 import java.util.Scanner;
 
+/**
+ * @author cleefsouza
+ *
+ */
+
 public class Main {
 	public static void main(String[] args) {
 		Conta conta = new Conta("1234-5", 1000, 500);
