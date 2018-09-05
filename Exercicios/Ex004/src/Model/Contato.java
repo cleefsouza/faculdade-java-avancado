@@ -27,7 +27,4 @@ public class Contato {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
-	
-
 }
