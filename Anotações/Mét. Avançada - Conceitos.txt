@@ -126,5 +126,13 @@ Paradigma de Programação Orientada a Objetos:
 	Uma classe abstrata pode possuir métodos abstratos, ou seja, métodos que apenas possuem suas especificações e são obrigados a serem sobrescritos pelas subclasses.
 
 - Interface
+	Interfaces contém valores constantes ou assinaturas de métodos que devem ser implementados dentro de uma classe.
+	Um método abstrato especifica a interface do método mas não a sua implementação.
+	Uma interface especifica o que deve ser feito, mas não como deve ser feito.
+	Uma classe que “implementa” uma interface é obrigada a implementar todas os seus métodos.
+
 - Tratamento de Exceções
+	Exceções são eventos que ocorrem durante a execução de um programa que interrompe o fluxo normal das instruções.
+	As notificação de uma exceção é dada por uma classe chamada Throwable que é definida pela API do Java e define todos os erros e exceções.
+
 - Coleções
