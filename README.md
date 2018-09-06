@@ -1,3 +1,3 @@
-# Java Exercises
+# Java Exercicíos
 
-Practices with Java - Discipline: Advanced Programming Language Methodology
+Exercicíos com Java - Disciplina: Métodologia de Linguagem de Programação Avançada
