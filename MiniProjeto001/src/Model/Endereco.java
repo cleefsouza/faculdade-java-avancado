@@ -12,6 +12,15 @@ public class Endereco {
 	private String numero; // Ex: 256b
 	private String cidade; // Ex: Hole Java
 
+	// Construtor
+	public Endereco(String rua, String cep, String bai, String num, String cid) {
+		this.rua = rua;
+		this.cep = cep;
+		this.bairro = bai;
+		this.numero = num;
+		this.cidade = cid;
+	}
+
 	/*
 	 * Getters e Setters
 	 */
