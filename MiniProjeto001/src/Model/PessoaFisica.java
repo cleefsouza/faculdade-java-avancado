@@ -10,6 +10,10 @@ public class PessoaFisica extends Pessoa {
 	private String rg; // Ex> 1.234.567
 
 	// Construtor
+	public PessoaFisica() {
+
+	}
+
 	public PessoaFisica(String nom, float ren, int sit, Endereco end, String cpf, String rg) {
 		super(nom, ren, sit, end);
 		this.cpf = cpf;

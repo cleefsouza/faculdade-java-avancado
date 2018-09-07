@@ -12,6 +12,10 @@ public class Pessoa {
 	private Endereco endereco; // Objeto do tipo Endereco
 
 	// Construtor
+	public Pessoa() {
+
+	}
+
 	public Pessoa(String nom, float ren, int sit, Endereco end) {
 		super();
 		this.nome = nom;

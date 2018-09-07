@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @author cleefsouza
@@ -10,15 +11,12 @@ import java.util.Date;
 public class Movimento {
 	private int tipo; // Ex: 1 - sacar, 2 - depositar, 3 - transferir
 	private Date dataMovimentacao; // Ex: 01/01/1001
-	private Date horaMovimentacao; // Ex: 00:00
-	private float valorMovimentacao; // Ex: 500.0
+	private Timestamp horaMovimentacao; // Ex: 00:00
+	private double valorMovimentacao; // Ex: 500.0
 
 	// Construtor
-	public Movimento(int tip, Date dat, Date hor, float val) {
-		this.tipo = tip;
-		this.dataMovimentacao = dat;
-		this.horaMovimentacao = hor;
-		this.valorMovimentacao = val;
+	public Movimento() {
+		
 	}
 
 	/*
@@ -41,19 +39,19 @@ public class Movimento {
 		this.dataMovimentacao = dataMovimentacao;
 	}
 
-	public Date getHoraMovimentacao() {
+	public Timestamp getHoraMovimentacao() {
 		return horaMovimentacao;
 	}
 
-	public void setHoraMovimentacao(Date horaMovimentacao) {
+	public void setHoraMovimentacao(Timestamp horaMovimentacao) {
 		this.horaMovimentacao = horaMovimentacao;
 	}
 
-	public float getValorMovimentacao() {
+	public double getValorMovimentacao() {
 		return valorMovimentacao;
 	}
 
-	public void setValorMovimentacao(float valorMovimentacao) {
+	public void setValorMovimentacao(double valorMovimentacao) {
 		this.valorMovimentacao = valorMovimentacao;
 	}
 }
