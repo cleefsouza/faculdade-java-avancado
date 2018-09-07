@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.Scanner;
-
 import Control.ContaNullException;
 
 /**
@@ -22,7 +21,7 @@ public class Main {
 			System.out.print(
 					"---------------------------------\nMini Projeto 001 - Caixa de Banco\nAluno - Aryosvalldo Cleef de Souza\n---------------------------------\nGerenciamento de Contas\n---------------------------------\n1 - Cadastrar Conta\n2 - Listar Contas\n3 - Acessar uma Conta\n4 - Sair\n>>> ");
 
-			ent = new Scanner(System.in); // Zerando objeto Scanner
+			ent = new Scanner(System.in);
 			String opc = ent.nextLine();
 
 			switch (opc) {

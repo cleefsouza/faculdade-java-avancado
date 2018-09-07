@@ -56,7 +56,7 @@ public class Agencia {
 		if (contas.isEmpty()) {
 			System.err.println("Nenhuma conta cadastrada!");
 		} else {
-			Conta contaAux = null; // Conta para retorno
+			Conta contaAux = null;
 			for (Conta c : contas) { // Verificando arraylist
 				if (num.equals(c.getNumeroConta())) {
 					contaAux = c; // Recebendo conta valida
