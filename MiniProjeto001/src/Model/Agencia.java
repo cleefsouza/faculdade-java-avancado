@@ -43,7 +43,7 @@ public class Agencia {
 			SimpleDateFormat fData = new SimpleDateFormat("dd/MM/yyyy"); // Formatador de data
 			System.out.println("---------------------------------\nLista de Contas");
 			for (Conta c : contas) {
-				System.out.println("---------------------------------\nNúmero da Conta >>> " + c.getNumeroConta() + "\nData de Abertura >>> "
+				System.out.println("---------------------------------\nCliente >> " + c.getPessoa().getNome() + "\nNúmero da Conta >>> " + c.getNumeroConta() + "\nData de Abertura >>> "
 						+ fData.format(c.getDataAbertura()) + "\nSituação da Conta >>> "
 						+ (c.getSituacaoConta() == 1 ? "Ativa" : "Inativa"));
 			}
@@ -56,7 +56,7 @@ public class Agencia {
 		if (contas.isEmpty()) {
 			System.err.println("Nenhuma conta cadastrada!");
 		} else {
-			Conta contaAux = null;
+			Conta contaAux = null; // Conta para retorno
 			for (Conta c : contas) { // Verificando arraylist
 				if (num.equals(c.getNumeroConta())) {
 					contaAux = c; // Recebendo conta valida

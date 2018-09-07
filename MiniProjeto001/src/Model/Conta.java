@@ -19,6 +19,7 @@ public class Conta {
 	private String senha; // Ex: abc123
 	private double saldo; // Ex: 1500.0
 	private Agencia agencia; // Objeto do tipo Agencia
+	private Pessoa pessoa; // Objeto do tipo Pessoa
 	private ArrayList<Movimento> movimentos = new ArrayList<>(); // Objeto do tipo Movimento
 
 	// Construtor
@@ -26,12 +27,13 @@ public class Conta {
 
 	}
 
-	public Conta(String num, String sen, double sal, Agencia age) {
+	public Conta(String num, String sen, double sal, Agencia age, Pessoa pes) {
 		this.numeroConta = num;
 		this.dataAbertura = new Date(System.currentTimeMillis());
 		this.senha = sen;
 		this.saldo = sal;
 		this.agencia = age;
+		this.setPessoa(pes);
 	}
 
 	/*
@@ -135,7 +137,7 @@ public class Conta {
 
 		boolean ver = true;
 		while (ver == true) {
-			System.out.print("---------------------------------\nConta Nº: " + c.getNumeroConta() + " / Agência: " + a.getNumero()
+			System.out.print("---------------------------------\nCliente: " + c.pessoa.getNome() + "\nConta Nº: " + c.getNumeroConta() + " / Agência: " + a.getNumero()
 					+ " / Saldo atual: R$ " + c.getSaldo()
 					+ "\n---------------------------------\n1 – Realizar Saque\n2 – Realizar Depósito\n3 - Realizar Transferência\n4 - Extrato Bancário\n5 - Sair\n>>> ");
 
@@ -245,5 +247,13 @@ public class Conta {
 
 	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 }

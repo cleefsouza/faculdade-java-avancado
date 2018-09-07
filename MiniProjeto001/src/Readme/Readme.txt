@@ -2,6 +2,8 @@
 ## Prof: Thiago Rodrigues Medeiros
 ## Aluno: Aryosvalldo Cleef de Souza
 
+OBS: As validações e inserções de Pessoas ainda não estão dentro dos requisitos deste projeto!
+
 A. Depois de criar as classes do diagrama (UML.jpg) com seus atributos encapsulados e métodos, crie uma classe principal com o método main() e desenvolva a lógica a seguir:
 B. O Sistema deverá possuir um menu para cadastro de contas, listagem das contas e acessar uma conta.
 
