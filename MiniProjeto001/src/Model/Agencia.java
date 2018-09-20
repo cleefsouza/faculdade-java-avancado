@@ -2,6 +2,8 @@ package Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import Control.ContaDuplicadaException;
 import Control.ContaNullException;
 
 /**
@@ -16,25 +18,35 @@ public class Agencia {
 
 	// Construtor
 	public Agencia() {
-		
+
 	}
-	
+
 	public Agencia(String num, Endereco end) {
 		this.numero = num;
 		this.endereco = end;
 	}
 
 	/*
-	 * Métodos
+	 * MÃ©todos
 	 */
 
-	public void cadastrarConta(Conta c) throws ContaNullException {
-		// Tratando exceção "NULL"
-		if (c == null) {
-			throw new ContaNullException("Valores nulos recebidos! A conta não pode ser cadastrada.");
+	public void cadastrarConta(Conta c) throws ContaNullException, ContaDuplicadaException {
+		// Tratando exceÃ§Ã£o
+		if (contas.isEmpty() == true) {
+			if (c == null) {
+				throw new ContaNullException("Valores nulos recebidos! A conta nÃ£o pode ser cadastrada.");
+			} else {
+				this.contas.add(c);
+				System.out.println(">>> Conta cadastrada com sucesso!");
+			}
 		} else {
-			this.contas.add(c);
-			System.out.println(">>> Conta cadastrada com sucesso!");
+			Conta cAux = buscarConta(c.getNumeroConta());
+			if (cAux == null) {
+				this.contas.add(c);
+				System.out.println(">>> Conta cadastrada com sucesso!");
+			} else {
+				throw new ContaDuplicadaException("JÃ¡ existe uma conta cadastrada com esse nÃºmero!");
+			}
 		}
 	}
 
@@ -43,8 +55,9 @@ public class Agencia {
 			SimpleDateFormat fData = new SimpleDateFormat("dd/MM/yyyy"); // Formatador de data
 			System.out.println("---------------------------------\nLista de Contas");
 			for (Conta c : contas) {
-				System.out.println("---------------------------------\nCliente >> " + c.getPessoa().getNome() + "\nNúmero da Conta >>> " + c.getNumeroConta() + "\nData de Abertura >>> "
-						+ fData.format(c.getDataAbertura()) + "\nSituação da Conta >>> "
+				System.out.println("---------------------------------\nCliente >> " + c.getPessoa().getNome()
+						+ "\nNÃºmero da Conta >>> " + c.getNumeroConta() + "\nData de Abertura >>> "
+						+ fData.format(c.getDataAbertura()) + "\nSituaÃ§Ã£o da Conta >>> "
 						+ (c.getSituacaoConta() == 1 ? "Ativa" : "Inativa"));
 			}
 		} else {
@@ -65,7 +78,7 @@ public class Agencia {
 			}
 
 			if (contaAux == null) {
-				System.err.println("Conta não encontrada!");
+				System.err.println("Conta nÃ£o encontrada!");
 			} else {
 				contaAux.realizarOperacoes(contaAux, contaAux.getAgencia()); // Acessando menu da conta
 			}
@@ -79,8 +92,8 @@ public class Agencia {
 				contaAux = c; // Recebendo conta valida
 				break;
 			}
-		}		
-		return contaAux; // Retorno padrão
+		}
+		return contaAux; // Retorno padrï¿½o
 	}
 
 	/*

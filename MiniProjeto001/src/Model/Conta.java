@@ -27,41 +27,59 @@ public class Conta {
 
 	}
 
-	public Conta(String num, String sen, double sal, Agencia age, Pessoa pes) {
+	public Conta(String num, String sen, double sal, Agencia age) {
 		this.numeroConta = num;
 		this.dataAbertura = new Date(System.currentTimeMillis());
 		this.senha = sen;
 		this.saldo = sal;
 		this.agencia = age;
-		this.setPessoa(pes);
 	}
 
 	/*
-	 * MÈtodos
+	 * M√©todos
 	 */
+
+	public void cadastrarPessoa(String s, Endereco e) {
+
+		/*
+		 * Setando pessoa padr√£o para todas as contas.
+		 *
+		 */
+		if (s.equals("1")) {
+			PessoaFisica pFisica = new PessoaFisica("Aryosvalldo Cleef de Souza", 5000, 1, e, "111.222.333-44",
+					"1.234.567");
+			this.setPessoa(pFisica);
+		} else if (s.equals("2")) {
+			PessoaJuridica pJuridica = new PessoaJuridica("Cleef Souza LTDA", 10000, 1, e,
+					"12.345.678/9123-45");
+			this.setPessoa(pJuridica);
+		} else {
+			System.err.println("Op√ß√£o inv√°lida!");
+		}
+	}
 
 	public void sacar(double valor) {
 		if (this.getSaldo() <= 0 || valor <= 0) {
-			System.err.println("ImposÌvel realizar saque! Saldo ou valor menor ou igual a zero.");
+			System.err.println("Impos√≠vel realizar saque! Saldo ou valor menor ou igual a zero.");
 		} else {
 			this.setSaldo(this.getSaldo() - valor);
 			atualizarConta(agencia.buscarConta(this.numeroConta)); // Atualiza conta
 			System.out.println("Saque realizado com sucesso!");
 
-			// Registrando movimentaÁ„o
+			// Registrando movimenta√ß√£o
 			registrarMovimentacao(1, valor);
 		}
 	}
 
 	public void depositar(double valor) {
 		if (valor <= 0) {
-			System.err.println("ImposÌvel realizar depÛsito! Valor menor ou igual a zero.");
+			System.err.println("Imposs√≠vel realizar dep√≥sito! Valor menor ou igual a zero.");
 		} else {
 			this.setSaldo(this.getSaldo() + valor);
 			atualizarConta(agencia.buscarConta(this.numeroConta)); // Atualiza conta
-			System.out.println("DepÛsito realizado com sucesso!");
+			System.out.println("Dep√≥sito realizado com sucesso!");
 
-			// Registrando movimentaÁ„o
+			// Registrando movimenta√ß√£o
 			registrarMovimentacao(2, valor);
 		}
 	}
@@ -69,11 +87,11 @@ public class Conta {
 	public void transferirValor(double valor, String num) {
 		Conta receber = this.agencia.buscarConta(num); // Conta que vai receber o valor
 		if (receber == null) {
-			System.err.println("Conta n„o encontrada! Por favor, tente novamente.");
+			System.err.println("Conta n√£o encontrada! Por favor, tente novamente.");
 		} else {
-			// Verifica se o saldo È positivo
+			// Verifica se o saldo √© positivo
 			if (this.saldo <= 0 || this.saldo < valor) {
-				System.err.println("TransferÍcia n„o realizada! Saldo menor que o valor, negativo ou igual a zero.");
+				System.err.println("Transfer√™cia n√£o realizada! Saldo menor que o valor, negativo ou igual a zero.");
 			} else {
 				this.saldo = this.saldo - valor; // Subtrai o valor da conta emissora
 				receber.setSaldo(receber.getSaldo() + valor); // Adiciona o valor na conta receptora
@@ -82,10 +100,10 @@ public class Conta {
 				atualizarConta(agencia.buscarConta(this.numeroConta));
 				atualizarConta(receber);
 
-				// Registrando movimentaÁ„o
+				// Registrando movimenta√ß√£o
 				registrarMovimentacao(3, valor);
 
-				System.out.println(">>> TransferÍncia realizada com sucesso!");
+				System.out.println(">>> Transfer√™ncia realizada com sucesso!");
 			}
 		}
 	}
@@ -98,7 +116,7 @@ public class Conta {
 		mov.setTipo(tipo);
 		mov.setValorMovimentacao(valor);
 
-		this.movimentos.add(mov); // Adicionando movimentaÁ„o ao array
+		this.movimentos.add(mov); // Adicionando movimenta√ß√£o ao array
 	}
 
 	public void listarMovimentacoes() {
@@ -107,24 +125,24 @@ public class Conta {
 			SimpleDateFormat fHora = new SimpleDateFormat("HH:mm"); // Formatador de data
 			String tipo = "";
 
-			System.out.println("---------------------------------\nHistÛrico de MovimentaÁ„o");
+			System.out.println("---------------------------------\nHist√≥rico de Movimenta√ß√£o");
 			for (Movimento m : movimentos) {
-				
+
 				if (m.getTipo() == 1) {
 					tipo = "Saque";
 				} else if (m.getTipo() == 2) {
-					tipo = "DepÛsito";
+					tipo = "Dep√≥sito";
 				} else {
-					tipo = "TransferÍncia";
+					tipo = "Transfer√™ncia";
 				}
-				
-				// Listando movimentaÁıes
+
+				// Listando movimenta√ß√µes
 				System.out.println("---------------------------------\nTipo >>> " + tipo + "\nValor >>> R$ "
-						+ m.getValorMovimentacao() + "\nData da OperaÁ„o >>> " + fData.format(m.getDataMovimentacao())
-						+ "\nHora da OperaÁ„o >>> " + fHora.format(m.getHoraMovimentacao()));
+						+ m.getValorMovimentacao() + "\nData da Opera√ß√£o >>> " + fData.format(m.getDataMovimentacao())
+						+ "\nHora da Opera√ß√£o >>> " + fHora.format(m.getHoraMovimentacao()));
 			}
 		} else {
-			System.err.println("Nenhuma conta cadastrada!");
+			System.err.println("Nenhuma movimenta√ß√£o realizada!");
 		}
 	}
 
@@ -137,9 +155,9 @@ public class Conta {
 
 		boolean ver = true;
 		while (ver == true) {
-			System.out.print("---------------------------------\nCliente: " + c.pessoa.getNome() + "\nConta N∫: " + c.getNumeroConta() + " / AgÍncia: " + a.getNumero()
-					+ " / Saldo atual: R$ " + c.getSaldo()
-					+ "\n---------------------------------\n1 ñ Realizar Saque\n2 ñ Realizar DepÛsito\n3 - Realizar TransferÍncia\n4 - Extrato Banc·rio\n5 - Sair\n>>> ");
+			System.out.print("---------------------------------\nCliente: " + c.pessoa.getNome() + "\nConta N¬∫: "
+					+ c.getNumeroConta() + " / Ag√™ncia: " + a.getNumero() + " / Saldo atual: R$ " + c.getSaldo()
+					+ "\n---------------------------------\n1 - Realizar Saque\n2 - Realizar Dep√≥sito\n3 - Realizar Transfer√™ncia\n4 - Extrato Banc√°rio\n5 - Sair\n>>> ");
 
 			ent = new Scanner(System.in);
 			String opc = ent.next();
@@ -151,18 +169,18 @@ public class Conta {
 				break;
 
 			case "2":
-				System.out.print("Valor do depÛsito >>> ");
+				System.out.print("Valor do dep√≥sito >>> ");
 				depositar(ent.nextDouble());
 				break;
 
 			case "3":
-				System.out.print("N˙mero da conta para transferÍncia >>> ");
+				System.out.print("N√∫mero da conta para transfer√™ncia >>> ");
 				String contaTrans = ent.next();
 
-				System.out.print("Valor para transferÍncia >>> ");
+				System.out.print("Valor para transfer√™ncia >>> ");
 				double valorTrans = ent.nextDouble();
 
-				transferirValor(valorTrans, contaTrans); // OperaÁ„o de transferÍncia
+				transferirValor(valorTrans, contaTrans); // Opera√ß√£o de transfer√™ncia
 				break;
 
 			case "4":
@@ -170,12 +188,12 @@ public class Conta {
 				break;
 
 			case "5":
-				System.out.println(">>> Encerrando sess„o ...");
+				System.out.println(">>> Encerrando sess√£o ...");
 				ver = false;
 				break;
 
 			default:
-				System.out.println(">>> OpÁ„o inv·lida!");
+				System.err.println("Op√ß√£o inv√°lida!");
 				break;
 			}
 		}

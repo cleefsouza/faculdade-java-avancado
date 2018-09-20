@@ -2,45 +2,45 @@
 ## Prof: Thiago Rodrigues Medeiros
 ## Aluno: Aryosvalldo Cleef de Souza
 
-OBS: As validações e inserções de Pessoas ainda não estão dentro dos requisitos deste projeto!
+OBS: Os dados pessoais dos clientes sÃ£o setados no mÃ©todo cadastrar pessoa
 
-A. Depois de criar as classes do diagrama (UML.jpg) com seus atributos encapsulados e métodos, crie uma classe principal com o método main() e desenvolva a lógica a seguir:
-B. O Sistema deverá possuir um menu para cadastro de contas, listagem das contas e acessar uma conta.
+A. Depois de criar as classes do diagrama (UML.jpg) com seus atributos encapsulados e mÃ©todos, crie uma classe principal com o mÃ©todo main() e desenvolva a lÃ³gica a seguir:
+B. O Sistema deverÃ¡ possuir um menu para cadastro de contas, listagem das contas e acessar uma conta.
 
 ----------------------------------------
 > Gerenciamento de Contas
->> 1 – Cadastrar Conta
->> 2 – Listar Contas
->> 3 – Acessar uma Conta
->> 4 – Sair
+>> 1 - Cadastrar Conta
+>> 2 - Listar Contas
+>> 3 - Acessar uma Conta
+>> 4 - Sair
 ----------------------------------------
 
-1. No item 1 do menu, deverá ser pedido todos os dados para cadastrar uma conta e adicionar essa conta criada em uma agência.
-2. No item 2 do menu, deverá ser listada todas as contas da agência.
-2.1. Se a agência não possuir nenhuma conta exibir uma mensagem ao usuário
-3. No item 3 do menu, deverá ser pedido o número de determinada conta para que se possa realizar as suas operações. Essas operações deverão ser descritas em outro menu.
-3.1. Se não existir uma conta com o número informado deverá ser retornado uma mensagem avisando esse erro ao usuário.
-4. No item 4 do menu, o sistema deverá encerrar o programa e exibir a mensagem. Obrigado por utilizar o banco “Unipê Bank”.
+1. No item 1 do menu, deverÃ¡ ser pedido todos os dados para cadastrar uma conta e adicionar essa conta criada em uma agÃªncia.
+2. No item 2 do menu, deverÃ¡ ser listada todas as contas da agÃªncia.
+2.1. Se a agÃªncia nÃ£o possuir nenhuma conta exibir uma mensagem ao usuÃ¡rio
+3. No item 3 do menu, deverÃ¡ ser pedido o nÃºmero de determinada conta para que se possa realizar as suas operaÃ§Ãµes. Essas operaÃ§Ãµes deverÃ£o ser descritas em outro menu.
+3.1. Se nÃ£o existir uma conta com o nÃºmero informado deverÃ¡ ser retornado uma mensagem avisando esse erro ao usuÃ¡rio.
+4. No item 4 do menu, o sistema deverÃ¡ encerrar o programa e exibir a mensagem. Obrigado por utilizar o banco UnipÃª Bank!.
 
-C. Todas as contas devem pertencer a uma única Agência. Dessa forma uma agência deve ser criada no início do programa e todas as contas criadas devem ser adicionadas a ela.
-D. O menu de acesso a uma conta deverá possuir as opções abaixo:
+C. Todas as contas devem pertencer a uma Ãºnica AgÃªncia. Dessa forma uma agÃªncia deve ser criada no inÃ­cio do programa e todas as contas criadas devem ser adicionadas a ela.
+D. O menu de acesso a uma conta deverÃ¡ possuir as opÃ§Ãµes abaixo:
 
 ----------------------------------------
-> Conta nº: 45254
->> 1 – Realizar Saque
->> 2 – Realizar Deposito
->> 3 – Realizar Transferência
->> 4 – Extrato Bancário
->> 5 – Sair
+> Conta nÂº: 45254
+>> 1 - Realizar Saque
+>> 2 - Realizar Deposito
+>> 3 - Realizar TransferÃªncia
+>> 4 - Extrato BancÃ¡rio
+>> 5 - Sair
 ----------------------------------------
 
-1. No item 1 do menu, deverá ser pedido um valor de saque e efetuar essa operação na conta escolhida.
-1.1. Se o valor do saque for maior que o saldo da conta uma mensagem deverá ser exibida ao usuário informando esse erro.
-2. No item 2 do menu, deverá ser pedido um valor de deposito e efetuar essa operação na conta escolhida.
-3. No item 3 do menu, deverá ser pedido um valor de transferência e o número de uma conta e efetuar essa operação na conta escolhida.
-3.1. Depois do número da conta que receberá a transferência for digitado, será necessário pesquisar na agência se a conta existe. Se a conta não existir, uma mensagem deverá ser exibida ao usuário informando essa situação.
-4. No item 4 do menu, deverá ser exibida todas as movimentações realizadas na conta escolhida.
-5. No item 5 do menu, o sistema deverá voltar para o menu gerenciamento de contas.
+1. No item 1 do menu, deverÃ¡ ser pedido um valor de saque e efetuar essa operaÃ§Ã£o na conta escolhida.
+1.1. Se o valor do saque for maior que o saldo da conta uma mensagem deverÃ¡ ser exibida ao usurio informando esse erro.
+2. No item 2 do menu, deverÃ¡ ser pedido um valor de deposito e efetuar essa operaÃ§Ã£o na conta escolhida.
+3. No item 3 do menu, deverÃ¡ ser pedido um valor de transferÃªncia e o nÃºmero de uma conta e efetuar essa operaÃ§Ã£o na conta escolhida.
+3.1. Depois do nÃºmero da conta que receberÃ¡ a transferÃªncia for digitado, serÃ¡ necessÃ¡rio pesquisar na agÃªncia se a conta existe. Se a conta nï¿½o existir, uma mensagem deverÃ¡ ser exibida ao usuÃ¡rio informando essa situaÃ§Ã£o.
+4. No item 4 do menu, deverÃ¡ ser exibida todas as movimentaÃ§Ãµes realizadas na conta escolhida.
+5. No item 5 do menu, o sistema deverÃ¡ voltar para o menu gerenciamento de contas.
 
-E. A cada momento que o usuário realizar um saque, deposito ou transferência, um movimento deve ser criado e adicionado no ArrayList de movimentos da conta.
-F. Encontre duas exceções que podem ocorrer durante a execução do programa e crie classes personalizadas para exceções herdando de exception. Depois trate as mesmas dentro do código.
+E. A cada momento que o usuÃ¡rio realizar um saque, deposito ou transferÃªncia, um movimento deve ser criado e adicionado no ArrayList de movimentos da conta.
+F. Encontre duas exceÃ§Ãµes que podem ocorrer durante a execuÃ§Ã£o do programa e crie classes personalizadas para exceÃ§Ãµes herdando de exception. Depois trate as mesmas dentro do cÃ³digo.

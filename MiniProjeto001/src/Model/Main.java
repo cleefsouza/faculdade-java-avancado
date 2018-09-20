@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Scanner;
 
+import Control.ContaDuplicadaException;
 import Control.ContaNullException;
 
 /**
@@ -13,14 +14,11 @@ public class Main {
 	static Scanner ent;
 
 	public static void main(String[] args) {
+		/*
+		 * Setando agencia e endereÃ§o padrÃ£o
+		 */
 		Endereco endereco = new Endereco("Amazing Grace", "58302-000", "Throwable", "256b", "Hole Java");
 		Agencia agencia = new Agencia("1234-5", endereco);
-		
-		/*
-		 * Setando pessoa padrão para todas as contas.
-		 * Tipo: PessoaFisica()
-		 */
-		PessoaFisica pessoa = new PessoaFisica("Aryosvalldo Cleef de Souza", 5000, 1, endereco, "111.222.333-44","1.234.567");
 
 		Conta conta;
 
@@ -33,7 +31,10 @@ public class Main {
 
 			switch (opc) {
 			case "1":
-				System.out.print("Número da conta >>> ");
+				System.out.print("Digite:\n1 - Para pessoa fÃ­sica\n2 - Para pessoa jurÃ­dica\n>>> ");
+				String s = ent.next(); // Variavel para parametro no mÃ©todo cadastrarPessoa()
+
+				System.out.print("NÃºmero da conta >>> ");
 				String numeroConta = ent.next(); // Ex: 12345-6
 
 				System.out.print("Senha da conta >>> ");
@@ -42,12 +43,16 @@ public class Main {
 				System.out.print("Saldo atual >>> ");
 				double saldo = ent.nextDouble(); // Ex: 1200.0
 
-				conta = new Conta(numeroConta, senha, saldo, agencia, pessoa); // Criando conta
+				conta = new Conta(numeroConta, senha, saldo, agencia); // Criando conta
+				conta.cadastrarPessoa(s, endereco);
+
 				try {
-					// Cadastrando conta na agência
+					// Cadastrando conta na agÃªncia
 					agencia.cadastrarConta(conta);
 				} catch (ContaNullException cne) {
 					System.err.println("Erro: " + cne.getMessage());
+				} catch (ContaDuplicadaException cde) {
+					System.err.println("Erro: " + cde.getMessage());
 				}
 				break;
 
@@ -56,17 +61,17 @@ public class Main {
 				break;
 
 			case "3":
-				System.out.print("Número da conta >>> ");
+				System.out.print("NÃºmero da conta >>> ");
 				agencia.acessarConta(ent.next()); // Acessando uma conta
 				break;
 
 			case "4":
-				System.out.println(">>> Obrigado por utilizar o Unipê Bank!\n>>> Encerrando ...");
+				System.out.println(">>> Obrigado por utilizar o UnipÃª Bank!\n>>> Encerrando ...");
 				System.exit(1);
 				break;
 
 			default:
-				System.out.println(">>> Opção inválida!");
+				System.err.println("OpÃ§Ã£o invÃ¡lida!");
 				break;
 			}
 		}
