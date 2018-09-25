@@ -26,12 +26,11 @@ public class Conexao {
         } catch (ClassNotFoundException cnf_ex) { // Tratamento de exceção
             System.err.println("Erro de conexão: " + cnf_ex.getMessage()); // Mensagem no console
             JOptionPane.showMessageDialog(null, "Conexão não encontrada ...", "Erro: ClassNotFoundException", JOptionPane.ERROR_MESSAGE); // Mensagem para o usuário
-        } catch (SQLException cnf_ex) { // Tratamento de exceção
-            System.err.println("Erro de conexão: " + cnf_ex.getMessage()); // Mensagem no console
-            JOptionPane.showMessageDialog(null, "Conexão não encontrada ...", "Erro: ClassNotFoundException", JOptionPane.ERROR_MESSAGE); // Mensagem para o usuário
+        } catch (SQLException sql_ex) { // Tratamento de exceção
+            System.err.println("Erro de conexão: " + sql_ex.getMessage()); // Mensagem no console
+            JOptionPane.showMessageDialog(null, "Conexão não encontrada ...", "Erro: SQLException", JOptionPane.ERROR_MESSAGE); // Mensagem para o usuário
         }
 
         return con;
     }
-
 }
