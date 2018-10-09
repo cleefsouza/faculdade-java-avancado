@@ -14,7 +14,7 @@ import java.sql.Statement;
 public class CreateDatabase {
 
 	/*
-	 * Métodos
+	 * MÃ©todos
 	 */
 
 	// Criar nova database

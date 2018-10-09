@@ -16,15 +16,15 @@ import Model.Pessoa;
  *
  */
 public class PessoaDAO {
-	Connection con = null; // Variavel para receber conxe„o
+	Connection con = null; // Variavel para receber conxe√£o
 
-	// Construtor inicia conex„o
+	// Construtor inicia conex√£o
 	public PessoaDAO() {
 		this.con = new ConnectionFactory.ConnectionStart().getConnection();
 	}
 
 	/*
-	 * MÈtodos
+	 * M√©todos
 	 */
 
 	// Inserir
@@ -73,8 +73,8 @@ public class PessoaDAO {
 		String sql = "delete from pessoa where cpf = ?";
 		try (PreparedStatement pstm = this.con.prepareStatement(sql)) {
 			pstm.setString(1, scpf);
-			pstm.execute(); // Executando remoÁ„o
-			System.out.println("Pessoa removida com sucesso!");
+			pstm.execute(); // Executando remo√ß√£o
+			System.out.println("CPF "+scpf+" removido com sucesso!");
 		} catch (SQLException e) {
 			System.err.println("Erro ao remover pessoa.\n" + e.getMessage());
 		}
@@ -99,7 +99,7 @@ public class PessoaDAO {
 
 	// Buscar por CPF
 	public Pessoa buscarPorCpf(String scpf) {
-		String sql = "select * from pessoa where cpf = "+scpf;
+		String sql = "select * from pessoa where cpf = '"+scpf+"';"; // Fiz essa gambiarra com a variavel pq estava retornando null
 		Pessoa p = null;
 		try (Statement stm = this.con.createStatement()) {
 			
@@ -115,22 +115,48 @@ public class PessoaDAO {
 			System.err.println("Erro ao buscar pessoa pelo cpf.\n" + e.getMessage());
 		}
 
-		if (p.equals(null)) {
-			System.err.println("Esta pessoa n„o est· cadastrada na nossa base de dados.");
-		} else {
-			System.out.println("----------------- RETORNO DA BUSCA\n" + "Nome: " + p.getNome() + "\n" + "CPF: "
-					+ p.getCpf() + "\n" + "RG: " + p.getRg() + "\n" + "Idade: " + p.getIdade());
-		}
 		return p;
 	}
 
 	// Buscar por RG
 	public Pessoa buscarPorRg(String srg) {
-		return null;
+		String sql = "select * from pessoa where rg = '"+srg+"';"; // Fiz essa gambiarra com a variavel pq estava retornando null
+		Pessoa p = null;
+		try (Statement stm = this.con.createStatement()) {
+			
+			ResultSet rs = stm.executeQuery(sql);
+			p = new Pessoa();
+			while (rs.next()) {
+				p.setCpf(rs.getString("cpf"));
+				p.setNome(rs.getString("nome"));
+				p.setRg(rs.getString("rg"));
+				p.setIdade(rs.getInt("idade"));
+			}
+		} catch (SQLException e) {
+			System.err.println("Erro ao buscar pessoa pelo rg.\n" + e.getMessage());
+		}
+
+		return p;
 	}
 
 	// Buscar por nome
 	public Pessoa buscarPorNome(String snome) {
-		return null;
+		String sql = "select * from pessoa where nome = '"+snome+"';"; // Fiz essa gambiarra com a variavel pq estava retornando null
+		Pessoa p = null;
+		try (Statement stm = this.con.createStatement()) {
+			
+			ResultSet rs = stm.executeQuery(sql);
+			p = new Pessoa();
+			while (rs.next()) {
+				p.setCpf(rs.getString("cpf"));
+				p.setNome(rs.getString("nome"));
+				p.setRg(rs.getString("rg"));
+				p.setIdade(rs.getInt("idade"));
+			}
+		} catch (SQLException e) {
+			System.err.println("Erro ao buscar pessoa pelo nome.\n" + e.getMessage());
+		}
+
+		return p;
 	}
 }

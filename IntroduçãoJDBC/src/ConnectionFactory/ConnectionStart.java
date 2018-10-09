@@ -16,14 +16,14 @@ public class ConnectionStart {
 
 	public Connection getConnection() {
 		try {
-			String url = "jdbc:sqlite:C:/sqlite/introducao_jdbc.db"; // URL
-																		// database
-			// Criando conex„o
+			String url = "jdbc:sqlite:C:/sqlite/introducao_jdbc.db"; // URL database
+			
+			// Criando conex√£o
 			this.con = DriverManager.getConnection(url);
-			System.out.println("Conex„o com sqlite estabelecida.");
+			System.out.println("Conex√£o com sqlite estabelecida.");
 
 		} catch (SQLException e) {
-			System.err.println("Erro ao estabelecer conex„o.\n" + e.getMessage());
+			System.err.println("Erro ao estabelecer conex√£o.\n" + e.getMessage());
 		}
 		return this.con;
 	}

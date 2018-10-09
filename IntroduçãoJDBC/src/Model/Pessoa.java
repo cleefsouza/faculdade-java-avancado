@@ -12,6 +12,18 @@ public class Pessoa {
 	private String rg;
 	private int idade;
 
+	// Construtores
+	public Pessoa(){
+		
+	}
+
+	public Pessoa(String nom, String cpf, String rg, int ida){
+		this.nome = nom;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.idade = ida;
+	}
+
 	/*
 	 * Getters e Setters
 	 */
