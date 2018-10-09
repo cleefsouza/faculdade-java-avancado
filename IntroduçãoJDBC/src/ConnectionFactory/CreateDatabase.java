@@ -20,7 +20,7 @@ public class CreateDatabase {
 	// Criar nova database
 	public static void createNewDatabase(String fileName) {
 
-		String url = "jdbc:sqlite:C:/sqlite/" + fileName; // URL da database
+		String url = "jdbc:sqlite:C:/" + fileName; // URL da database
 
 		try (Connection con = DriverManager.getConnection(url)) {
 			if (con != null) {
@@ -36,7 +36,7 @@ public class CreateDatabase {
 
 	// Criar tabela pessoa
 	public static void createNewTable(){
-		String url = "jdbc:sqlite:C:/sqlite/introducao_jdbc.db"; // URL da database
+		String url = "jdbc:sqlite:C:/introducao_jdbc.db"; // URL da database
 		try(Connection con = DriverManager.getConnection(url);
 				Statement stm = con.createStatement()){
 			String sql = "create table if not exists pessoa(cpf text primary key, nome text not null, rg text not null, idade integer);";
