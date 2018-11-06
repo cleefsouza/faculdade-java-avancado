@@ -37,4 +37,12 @@ public class Conta {
 			this.saldo -= valor;
 		}
 	}
+
+	public void depositar(double valor) throws DepositoNegativoException {
+		if (valor < 0) {
+			throw new DepositoNegativoException("Não é permitido valores negativos!");
+		} else {
+			this.saldo += valor;
+		}
+	}
 }
