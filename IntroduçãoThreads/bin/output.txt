@@ -1,0 +1,52 @@
+﻿/**
+ * 
+ * @author cleefsouza
+ *
+ */
+
+inicio do main
+inicio da cesta
+inicio do relatório
+fruta da cesta: banana
+inicio da barra
+relatório: 0
+relatório: 1
+main: 0
+main: 1
+barra de progresso: 0%
+barra de progresso: 10%
+barra de progresso: 20%
+barra de progresso: 30%
+barra de progresso: 40%
+barra de progresso: 50%
+barra de progresso: 60%
+relatório: 2
+relatório: 3
+relatório: 4
+relatório: 5
+barra de progresso: 70%
+barra de progresso: 80%
+barra de progresso: 90%
+barra de progresso: 100%
+fim da barra
+main: 2
+main: 3
+main: 4
+main: 5
+relatório: 6
+relatório: 7
+relatório: 8
+relatório: 9
+main: 6
+relatório: 10
+fim do relatório
+main: 7
+main: 8
+main: 9
+main: 10
+fim do main
+fruta da cesta: maçã
+fruta da cesta: laranja
+fruta da cesta: abacate
+fruta da cesta: maracujá
+fim da cesta
