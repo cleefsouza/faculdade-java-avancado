@@ -13,8 +13,5 @@ public interface IFilmeDAO {
     void cadastrar(Filme filme);
 
     // listar filmes de acordo com o gênero
-    List<Filme> listarPorGenero();
-
-    // listar filmes de acordo com sua nota
-    List<Filme> listarPorNota();
+    List<Filme> listarPorGenero(int cod);
 }

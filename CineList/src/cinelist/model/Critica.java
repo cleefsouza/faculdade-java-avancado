@@ -8,17 +8,23 @@ public class Critica {
 
     private int cod_cri;
     private String descricao_cri;
-    private double nota_cri;
+    private int nota_cri;
     private Filme filme_cri;
 
     // construtor
     public Critica() {
     }
 
+    public Critica(int co, String de, int no, Filme fi) {
+        this.cod_cri = co;
+        this.descricao_cri = de;
+        this.nota_cri = no;
+        this.filme_cri = fi;
+    }
+
     /**
      * getters e setters
      */
-    
     /**
      * @return the cod_cri
      */
@@ -50,14 +56,14 @@ public class Critica {
     /**
      * @return the nota_cri
      */
-    public double getNota_cri() {
+    public int getNota_cri() {
         return nota_cri;
     }
 
     /**
      * @param nota_cri the nota_cri to set
      */
-    public void setNota_cri(double nota_cri) {
+    public void setNota_cri(int nota_cri) {
         this.nota_cri = nota_cri;
     }
 

@@ -7,17 +7,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import cinelist.controller.IPadrao;
 import cinelist.model.Genero;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import cinelist.controller.IPadraoDAO;
 
 /**
  *
  * @author cleefsouza
  */
-public class DiretorDAO implements IPadrao, IDiretorDAO {
+public class DiretorDAO implements IPadraoDAO, IDiretorDAO {
 
     // recebe conexão
     Connection conn = null;
@@ -83,7 +83,7 @@ public class DiretorDAO implements IPadrao, IDiretorDAO {
         return diretor;
     }
 
-    // buscar
+    // listar
     @Override
     public List<Diretor> listar() {
         List<Diretor> lista = null;
