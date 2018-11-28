@@ -111,16 +111,15 @@ public class CriticaDAO implements IPadraoDAO, ICriticaDAO {
     @Override
     public List<Filme> listarFilmesPorNota(int nota) {
         List<Filme> lista = null;
-        String sql = "SELECT * FROM critica WHERE nota_cri = ?;";
+        String sql = "SELECT filme_cri FROM critica WHERE nota_cri = ?;";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, nota);
-            ResultSet rs = pstm.executeQuery(sql);
+            ResultSet rs = pstm.executeQuery();
 
-            Object critica;
             lista = new ArrayList<>();
             while (rs.next()) {
                 Filme filme = (Filme) new FilmeDAO().buscar(rs.getInt("filme_cri"));
-                lista.add((Filme) filme);
+                lista.add(filme);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao listar filmes: " + e.getMessage());

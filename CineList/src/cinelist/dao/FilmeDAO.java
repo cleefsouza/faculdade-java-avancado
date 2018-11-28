@@ -87,6 +87,7 @@ public class FilmeDAO implements IPadraoDAO, IFilmeDAO {
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar filme: " + e.getMessage());
+            e.printStackTrace();
         }
         return filme;
     }

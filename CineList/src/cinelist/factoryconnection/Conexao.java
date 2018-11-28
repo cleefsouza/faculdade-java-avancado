@@ -17,7 +17,6 @@ public class Conexao {
         String url = "jdbc:sqlite:C:\\sqlite\\db_cinelist.db";
         try {
             conn = DriverManager.getConnection(url);
-            System.out.println("Conexão estabelecida com sucesso!");
         } catch (SQLException ex) {
             System.err.println("Erro ao estabelecer conexão: " + ex.getMessage());
         }
