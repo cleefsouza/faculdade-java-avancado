@@ -15,6 +15,11 @@ public class Login {
 
     }
 
+    public Login(String us, String pa) {
+        this.user_log = us;
+        this.password_log = pa;
+    }
+
     public Login(int co, String us, String pa) {
         this.cod_log = co;
         this.user_log = us;

@@ -11,9 +11,6 @@ public interface IPadrao {
     // remover objeto do banco de dados
     void remover(int cod);
 
-    // alterar dados do banco de dados
-    void alterar(int cod);
-
     // buscar objeto especifico do banco de dados
     Object buscar(int cod);
 

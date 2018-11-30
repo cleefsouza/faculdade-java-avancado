@@ -8,6 +8,6 @@ import caixadereliquias.model.Usuario;
  */
 public interface IUsuario {
 
-    // adicionar objetos no banco de dados
-    void adicionar(Usuario usuario);
+    // alterar dados do banco de dados
+    void alterar(Usuario usuario);    
 }

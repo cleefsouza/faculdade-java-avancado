@@ -19,7 +19,7 @@ public class Colecao {
 
     }
 
-    public Colecao(int co, String no, Date da, String de, Usuario us) {
+    public Colecao(int co, String no, String de, Date da, Usuario us) {
         this.cod_col = co;
         this.nome_col = no;
         this.data_criacao_col = da;
