@@ -11,17 +11,19 @@ public class Filme {
     private String descricao_fil;
     private Genero genero_fil;
     private Diretor diretor_fil;
+    private Usuario usuario_fil;
 
     // construtores
     public Filme() {
     }
 
-    public Filme(int co, String no, String de, Genero ge, Diretor di) {
+    public Filme(int co, String no, String de, Genero ge, Diretor di, Usuario us) {
         this.cod_fil = co;
         this.nome_fil = no;
         this.descricao_fil = de;
         this.genero_fil = ge;
         this.diretor_fil = di;
+        this.usuario_fil = us;
     }
 
     /**
@@ -95,5 +97,19 @@ public class Filme {
      */
     public void setDiretor_fil(Diretor diretor_fil) {
         this.diretor_fil = diretor_fil;
+    }
+
+    /**
+     * @return the usuario_fil
+     */
+    public Usuario getUsuario_fil() {
+        return usuario_fil;
+    }
+
+    /**
+     * @param usuario_fil the usuario_fil to set
+     */
+    public void setUsuario_fil(Usuario usuario_fil) {
+        this.usuario_fil = usuario_fil;
     }
 }

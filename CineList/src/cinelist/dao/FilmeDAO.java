@@ -5,6 +5,7 @@ import cinelist.controller.IPadraoDAO;
 import cinelist.model.Diretor;
 import cinelist.model.Filme;
 import cinelist.model.Genero;
+import cinelist.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,7 +84,8 @@ public class FilmeDAO implements IPadraoDAO, IFilmeDAO {
             while (rs.next()) {
                 Genero genero = (Genero) new GeneroDAO().buscar(rs.getInt("genero_fil"));
                 Diretor diretor = (Diretor) new DiretorDAO().buscar(rs.getInt("diretor_fil"));
-                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor);
+                Usuario usuario = (Usuario) new UsuarioDAO().buscar(rs.getInt("usuario_fil"));
+                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor, usuario);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar filme: " + e.getMessage());
@@ -103,11 +105,13 @@ public class FilmeDAO implements IPadraoDAO, IFilmeDAO {
             Object filme;
             Genero genero;
             Diretor diretor;
+            Usuario usuario;
             lista = new ArrayList<>();
             while (rs.next()) {
                 genero = (Genero) new GeneroDAO().buscar(rs.getInt("genero_fil"));
                 diretor = (Diretor) new DiretorDAO().buscar(rs.getInt("diretor_fil"));
-                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor);
+                usuario = (Usuario) new UsuarioDAO().buscar(rs.getInt("usuario_fil"));
+                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor, usuario);
 
                 lista.add((Filme) filme);
             }
@@ -128,11 +132,13 @@ public class FilmeDAO implements IPadraoDAO, IFilmeDAO {
             Object filme;
             Genero genero;
             Diretor diretor;
+            Usuario usuario;
             lista = new ArrayList<>();
             while (rs.next()) {
                 genero = (Genero) new GeneroDAO().buscar(rs.getInt("genero_fil"));
                 diretor = (Diretor) new DiretorDAO().buscar(rs.getInt("diretor_fil"));
-                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor);
+                usuario = (Usuario) new UsuarioDAO().buscar(rs.getInt("usuario_fil"));
+                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor, usuario);
 
                 lista.add((Filme) filme);
             }

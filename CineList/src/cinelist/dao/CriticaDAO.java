@@ -4,7 +4,6 @@ import cinelist.controller.ICriticaDAO;
 import cinelist.controller.IPadraoDAO;
 import cinelist.model.Critica;
 import cinelist.model.Filme;
-import cinelist.model.Genero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,7 +77,7 @@ public class CriticaDAO implements IPadraoDAO, ICriticaDAO {
             pstm.setInt(1, cod);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                Filme filme = (Filme) new FilmeDAO().buscar(rs.getInt("filme.cri"));
+                Filme filme = (Filme) new FilmeDAO().buscar(rs.getInt("filme_cri"));
                 critica = new Critica(rs.getInt("cod_cri"), rs.getString("descricao_cri"), rs.getInt("nota_cri"), filme);
             }
         } catch (SQLException e) {

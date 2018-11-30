@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import cinelist.controller.IPadraoDAO;
+import cinelist.model.Login;
+import cinelist.model.Usuario;
 
 /**
  *
@@ -115,11 +117,16 @@ public class DiretorDAO implements IPadraoDAO, IDiretorDAO {
             Diretor diretor;
             Filme filme;
             Genero genero;
+            Usuario usuario;
+            Login login;
             lista = new ArrayList<>();
             while (rs.next()) {
+                login = (Login) new LoginDAO().buscar(rs.getInt("usuario_fil"));
+                usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), login);
                 diretor = new Diretor(rs.getInt("cod_dir"), rs.getString("nome_dir"));
                 genero = new Genero(rs.getInt("cod_gen"), rs.getString("nome_gen"));
-                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor);
+
+                filme = new Filme(rs.getInt("cod_fil"), rs.getString("nome_fil"), rs.getString("descricao_fil"), genero, diretor, usuario);
                 lista.add(filme);
             }
         } catch (SQLException e) {
