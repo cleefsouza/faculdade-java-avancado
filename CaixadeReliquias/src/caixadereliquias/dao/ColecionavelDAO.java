@@ -1,7 +1,6 @@
 package caixadereliquias.dao;
 
 import caixadereliquias.controller.IColecionavel;
-import caixadereliquias.controller.IPadrao;
 import caixadereliquias.model.Colecao;
 import caixadereliquias.model.Colecionavel;
 import caixadereliquias.model.Estado;
@@ -17,13 +16,13 @@ import java.util.List;
  *
  * @author cleefsouza
  */
-public class ColecionavelDAO implements IColecionavel, IPadrao {
+public class ColecionavelDAO implements IColecionavel{
 
     // recebe conexão
     Connection conn = null;
 
     // construtor
-    ColecionavelDAO() {
+    public ColecionavelDAO() {
         // recebe conexão
         this.conn = new caixadereliquias.factoryconnection.Conexao().getConnection();
     }
@@ -43,26 +42,24 @@ public class ColecionavelDAO implements IColecionavel, IPadrao {
     }
 
     @Override
-    public List<Object> listarPorEstado(String descricao) {
-        List<Object> lista = null;
-        String sql = "SELECT * FROM colecionavel c, estado e WHERE c.descricao_est=? AND c.estado_cole=e.cod_est;";
+    public List<Colecionavel> listarRecentes(int lim) {
+        List<Colecionavel> lista = null;
+        String sql = "SELECT * FROM colecionavel ORDER BY cod_cole DESC LIMIT ?;";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
-            pstm.setString(1, descricao);
+            pstm.setInt(1, lim);
             ResultSet rs = pstm.executeQuery();
 
-            Object colecionavel;
-            Estado estado;
-            Colecao colecao;
+            Colecionavel colecionavel;
             lista = new ArrayList<>();
             while (rs.next()) {
-                estado = (Estado) new EstadoDAO().buscar(rs.getInt("estado_cole"));
-                colecao = (Colecao) new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
+                Estado estado = new EstadoDAO().buscar(rs.getInt("estado_cole"));
+                Colecao colecao = new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
                 colecionavel = new Colecionavel(rs.getInt("cod_cole"), rs.getString("nome_cole"), rs.getString("descricao_cole"), colecao, estado);
 
-                lista.add((Colecionavel) colecionavel);
+                lista.add(colecionavel);
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao listar colecionaveis por estado: " + e.getMessage());
+            System.err.println("Erro ao listar colecionaveis recentes: " + e.getMessage());
         }
         return lista;
     }
@@ -94,8 +91,8 @@ public class ColecionavelDAO implements IColecionavel, IPadrao {
     }
 
     @Override
-    public Object buscar(int cod) {
-        Object colecionavel = null;
+    public Colecionavel buscar(int cod) {
+        Colecionavel colecionavel = null;
         String sql = "SELECT * FROM colecionavel WHERE cod_cole;";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
@@ -104,8 +101,8 @@ public class ColecionavelDAO implements IColecionavel, IPadrao {
             Estado estado;
             Colecao colecao;
             while (rs.next()) {
-                estado = (Estado) new EstadoDAO().buscar(rs.getInt("estado_cole"));
-                colecao = (Colecao) new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
+                estado = new EstadoDAO().buscar(rs.getInt("estado_cole"));
+                colecao = new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
                 colecionavel = new Colecionavel(rs.getInt("cod_cole"), rs.getString("nome_cole"), rs.getString("descricao_cole"), colecao, estado);
             }
         } catch (SQLException e) {
@@ -115,26 +112,74 @@ public class ColecionavelDAO implements IColecionavel, IPadrao {
     }
 
     @Override
-    public List listar() {
-        List<Object> lista = null;
+    public List<Colecionavel> listar() {
+        List<Colecionavel> lista = null;
         String sql = "SELECT * FROM colecionavel";
         try (Statement pstm = this.conn.createStatement();
                 ResultSet rs = pstm.executeQuery(sql)) {
 
-            Object colecionavel;
+            Colecionavel colecionavel;
             Estado estado;
             Colecao colecao;
             lista = new ArrayList<>();
             while (rs.next()) {
-                estado = (Estado) new EstadoDAO().buscar(rs.getInt("estado_cole"));
-                colecao = (Colecao) new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
+                estado = new EstadoDAO().buscar(rs.getInt("estado_cole"));
+                colecao = new ColecaoDAO().buscar(rs.getInt("colecao_cole"));
                 colecionavel = new Colecionavel(rs.getInt("cod_cole"), rs.getString("nome_cole"), rs.getString("descricao_cole"), colecao, estado);
 
-                lista.add((Colecionavel) colecionavel);
+                lista.add(colecionavel);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao listar colecionaveis: " + e.getMessage());
         }
         return lista;
+    }
+
+    @Override
+    public int qtdTotal() {
+        String sql = "SELECT count(cod_cole) FROM colecionavel";
+        int qtd = 0;
+        try (Statement pstm = this.conn.createStatement();
+                ResultSet rs = pstm.executeQuery(sql)) {
+
+            while (rs.next()) {
+                qtd = rs.getInt("count(cod_cole)");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar quantidade: " + e.getMessage());
+        }
+        return qtd;
+    }
+
+    @Override
+    public int qtdSeminovo() {
+        String sql = "SELECT count(cod_cole) FROM colecionavel WHERE estado_cole = 2";
+        int qtd = 0;
+        try (Statement pstm = this.conn.createStatement();
+                ResultSet rs = pstm.executeQuery(sql)) {
+
+            while (rs.next()) {
+                qtd = rs.getInt("count(cod_cole)");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar quantidade: " + e.getMessage());
+        }
+        return qtd;
+    }
+
+    @Override
+    public int qtdNovo() {
+        String sql = "SELECT count(cod_cole) FROM colecionavel WHERE estado_cole = 1";
+        int qtd = 0;
+        try (Statement pstm = this.conn.createStatement();
+                ResultSet rs = pstm.executeQuery(sql)) {
+
+            while (rs.next()) {
+                qtd = rs.getInt("count(cod_cole)");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar quantidade: " + e.getMessage());
+        }
+        return qtd;
     }
 }

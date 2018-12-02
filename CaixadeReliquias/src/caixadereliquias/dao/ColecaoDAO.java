@@ -1,7 +1,6 @@
 package caixadereliquias.dao;
 
 import caixadereliquias.controller.IColecao;
-import caixadereliquias.controller.IPadrao;
 import caixadereliquias.model.Colecao;
 import caixadereliquias.model.Usuario;
 import java.sql.Connection;
@@ -16,13 +15,13 @@ import java.util.List;
  *
  * @author cleefsouza
  */
-public class ColecaoDAO implements IPadrao, IColecao {
+public class ColecaoDAO implements IColecao {
 
     // recebe conexão
     Connection conn = null;
 
     // construtor
-    ColecaoDAO() {
+    public ColecaoDAO() {
         // recebe conexão
         this.conn = new caixadereliquias.factoryconnection.Conexao().getConnection();
     }
@@ -33,7 +32,7 @@ public class ColecaoDAO implements IPadrao, IColecao {
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setString(1, colecao.getNome_col());
             pstm.setString(2, colecao.getDescricao_col());
-            pstm.setDate(3, (java.sql.Date) colecao.getData_criacao_col());
+            pstm.setString(3, colecao.getData_criacao_col());
             pstm.setInt(4, colecao.getUsuario_col().getCod_usu());
             pstm.execute();
         } catch (SQLException e) {
@@ -66,17 +65,16 @@ public class ColecaoDAO implements IPadrao, IColecao {
     }
 
     @Override
-    public Object buscar(int cod) {
-        Object colecao = null;
-        String sql = "SELECT * FROM colecao WHERE cod_col;";
+    public Colecao buscar(int cod) {
+        Colecao colecao = null;
+        String sql = "SELECT * FROM colecao WHERE cod_col = ?";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
             ResultSet rs = pstm.executeQuery();
 
-            Usuario usuario;
             while (rs.next()) {
-                usuario = (Usuario) new UsuarioDAO().buscar(rs.getInt("usuario_col"));
-                colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getDate("data_criacao_col"), usuario);
+                Usuario usuario = new UsuarioDAO().buscar(rs.getInt("usuario_col"));
+                colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getString("data_criacao_col"), usuario);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar coleção: " + e.getMessage());
@@ -85,19 +83,17 @@ public class ColecaoDAO implements IPadrao, IColecao {
     }
 
     @Override
-    public List listar() {
-        List<Object> lista = null;
+    public List<Colecao> listar() {
+        List<Colecao> lista = null;
         String sql = "SELECT * FROM colecao";
         try (Statement pstm = this.conn.createStatement();
                 ResultSet rs = pstm.executeQuery(sql)) {
 
-            Object colecao;
-            Usuario usuario;
             lista = new ArrayList<>();
             while (rs.next()) {
-                usuario = (Usuario) new UsuarioDAO().buscar(rs.getInt("usuario_col"));
-                colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getDate("data_criacao_col"), usuario);
-                lista.add((Colecao) colecao);
+                Usuario usuario = new UsuarioDAO().buscar(rs.getInt("usuario_col"));
+                Colecao colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getString("data_criacao_col"), usuario);
+                lista.add(colecao);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao listar coleções: " + e.getMessage());
@@ -106,7 +102,24 @@ public class ColecaoDAO implements IPadrao, IColecao {
     }
 
     @Override
-    public int qtdColecionaveis() {
+    public int qtdColecionaveis(int cod) {
+        String sql = "SELECT count(cc.colecao_cole) FROM colecao c, colecionavel cc WHERE cc.colecao_cole=c.cod_col AND c.cod_col = ?";
+        int qtd = 0;
+        try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
+
+            pstm.setInt(1, cod);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                qtd = rs.getInt("count(cc.colecao_cole)");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar quantidade: " + e.getMessage());
+        }
+        return qtd;
+    }
+
+    @Override
+    public int qtdColecoes() {
         String sql = "SELECT count(cod_col) FROM colecao";
         int qtd = 0;
         try (Statement pstm = this.conn.createStatement();
@@ -119,5 +132,26 @@ public class ColecaoDAO implements IPadrao, IColecao {
             System.err.println("Erro ao buscar quantidade: " + e.getMessage());
         }
         return qtd;
+    }
+
+    @Override
+    public List<Colecao> listarRecentes(int lim) {
+        List<Colecao> lista = null;
+        String sql = "SELECT * FROM colecao ORDER BY cod_col DESC LIMIT ?;";
+        try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
+            pstm.setInt(1, lim);
+            ResultSet rs = pstm.executeQuery();
+
+            lista = new ArrayList<>();
+            while (rs.next()) {
+                Usuario usuario = new UsuarioDAO().buscar(rs.getInt("usuario_col"));
+                Colecao colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getString("data_criacao_col"), usuario);
+
+                lista.add(colecao);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar colecão recentes: " + e.getMessage());
+        }
+        return lista;
     }
 }

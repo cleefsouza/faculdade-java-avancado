@@ -10,7 +10,7 @@ public class Colecao {
 
     private int cod_col;
     private String nome_col;
-    private Date data_criacao_col;
+    private String data_criacao_col;
     private String descricao_col;
     private Usuario usuario_col;
 
@@ -19,8 +19,15 @@ public class Colecao {
 
     }
 
-    public Colecao(int co, String no, String de, Date da, Usuario us) {
+    public Colecao(int co, String no, String de, String da, Usuario us) {
         this.cod_col = co;
+        this.nome_col = no;
+        this.data_criacao_col = da;
+        this.descricao_col = de;
+        this.usuario_col = us;
+    }
+
+    public Colecao(String no, String de, String da, Usuario us) {
         this.nome_col = no;
         this.data_criacao_col = da;
         this.descricao_col = de;
@@ -59,14 +66,14 @@ public class Colecao {
     /**
      * @return the data_criacao_col
      */
-    public Date getData_criacao_col() {
+    public String getData_criacao_col() {
         return data_criacao_col;
     }
 
     /**
      * @param data_criacao_col the data_criacao_col to set
      */
-    public void setData_criacao_col(Date data_criacao_col) {
+    public void setData_criacao_col(String data_criacao_col) {
         this.data_criacao_col = data_criacao_col;
     }
 

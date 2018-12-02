@@ -1,6 +1,6 @@
 package caixadereliquias.model;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -10,7 +10,7 @@ public class Usuario {
 
     private int cod_usu;
     private String nome_usu;
-    private Date data_nascimento_usu;
+    private String data_nascimento_usu;
     private Login login_usu;
 
     // construtores
@@ -18,7 +18,7 @@ public class Usuario {
 
     }
 
-    public Usuario(int co, String no, Date da, Login lo) {
+    public Usuario(int co, String no, String da, Login lo) {
         this.cod_usu = co;
         this.nome_usu = no;
         this.data_nascimento_usu = da;
@@ -57,15 +57,17 @@ public class Usuario {
     /**
      * @return the data_nascimento_usu
      */
-    public Date getData_nascimento_usu() {
-        return data_nascimento_usu;
+    public String getData_nascimento_usu() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(data_nascimento_usu);
     }
 
     /**
      * @param data_nascimento_usu the data_nascimento_usu to set
      */
-    public void setData_nascimento_usu(Date data_nascimento_usu) {
-        this.data_nascimento_usu = data_nascimento_usu;
+    public void setData_nascimento_usu(String data_nascimento_usu) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        this.data_nascimento_usu = sdf.format(data_nascimento_usu);
     }
 
     /**

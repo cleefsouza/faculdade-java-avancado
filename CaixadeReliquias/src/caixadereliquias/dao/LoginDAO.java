@@ -1,19 +1,17 @@
 package caixadereliquias.dao;
 
-import caixadereliquias.controller.IPadrao;
 import caixadereliquias.controller.ILogin;
 import caixadereliquias.model.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
  * @author cleefsouza
  */
-public class LoginDAO implements IPadrao, ILogin {
+public class LoginDAO implements ILogin {
 
     // recebe conexão
     Connection conn = null;
@@ -42,11 +40,6 @@ public class LoginDAO implements IPadrao, ILogin {
     }
 
     @Override
-    public void remover(int cod) {
-        // o login não pode ser removido
-    }
-
-    @Override
     public void alterar(Login login) {
         String sql = "update login set user_log =?, password_log=? where cod_log=?";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
@@ -61,9 +54,9 @@ public class LoginDAO implements IPadrao, ILogin {
     }
 
     @Override
-    public Object buscar(int cod) {
+    public Login buscar(int cod) {
         String sql = "select * from login where cod_log=?";
-        Object login = null;
+        Login login = null;
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
             ResultSet rs = pstm.executeQuery();
@@ -75,7 +68,7 @@ public class LoginDAO implements IPadrao, ILogin {
         }
         return login;
     }
-    
+
     // buscar por usuario
     public Login buscarUsuario(String user) {
         String sql = "select * from login where user_log=?";
@@ -90,11 +83,5 @@ public class LoginDAO implements IPadrao, ILogin {
             System.err.println("Erro ao buscar login: " + e.getMessage());
         }
         return login;
-    }
-
-    @Override
-    public List<Object> listar() {
-        // o login não pode ser listado
-        return null;
     }
 }

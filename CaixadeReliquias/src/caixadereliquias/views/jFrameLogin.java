@@ -38,7 +38,7 @@ public class jFrameLogin extends javax.swing.JFrame {
 
     final void framePrincipal(Login login) {
         jFramePrincipal jfmp = new jFramePrincipal();
-        //jfmp.buscarLogin(login);
+        jfmp.buscarLogin(login);
         jfmp.setVisible(true);
         this.dispose();
     }
@@ -63,9 +63,11 @@ public class jFrameLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Caixa de Relíquias");
+        setMinimumSize(new java.awt.Dimension(1106, 731));
         setPreferredSize(new java.awt.Dimension(1106, 731));
         setResizable(false);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(1106, 731));
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));

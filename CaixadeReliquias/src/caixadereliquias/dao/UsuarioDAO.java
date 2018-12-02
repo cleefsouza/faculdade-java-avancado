@@ -1,36 +1,26 @@
 package caixadereliquias.dao;
 
-import caixadereliquias.controller.IPadrao;
 import caixadereliquias.controller.IUsuario;
 import caixadereliquias.model.Login;
 import caixadereliquias.model.Usuario;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author cleefsouza
  */
-public class UsuarioDAO implements IPadrao, IUsuario {
+public class UsuarioDAO implements IUsuario {
 
     // recebe conexão
     Connection conn = null;
 
     // construtor
-    UsuarioDAO() {
+    public UsuarioDAO() {
         // recebe conexão
         this.conn = new caixadereliquias.factoryconnection.Conexao().getConnection();
-    }
-
-    @Override
-    public void remover(int cod) {
-        // o usuário não pode ser removido
     }
 
     @Override
@@ -38,7 +28,7 @@ public class UsuarioDAO implements IPadrao, IUsuario {
         String sql = "update usuario set nome_usu =?, data_nascimento_usu=? where cod_usu=?";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setString(1, usuario.getNome_usu());
-            pstm.setDate(2, (Date) usuario.getData_nascimento_usu());
+            pstm.setString(2, usuario.getData_nascimento_usu());
             pstm.setInt(3, usuario.getCod_usu());
             pstm.execute();
             System.out.println("Login alterado com sucesso!");
@@ -48,41 +38,36 @@ public class UsuarioDAO implements IPadrao, IUsuario {
     }
 
     @Override
-    public Object buscar(int cod) {
+    public Usuario buscar(int cod) {
         String sql = "select * from usuario where cod_usu=?";
-        Object usuario = null;
+        Usuario usuario = null;
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                Login login = (Login) new LoginDAO().buscar(rs.getInt("login_usu"));
-                usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), rs.getDate("data_nascimento_usu"), login);
+                Login login = new LoginDAO().buscar(rs.getInt("login_usu"));
+                usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), rs.getString("data_nascimento_usu"), login);
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar usuário: " + e.getMessage());
         }
-        return null;
+        return usuario;
     }
 
     @Override
-    public List listar() {
-        List<Usuario> lista = null;
-        String sql = "SELECT * FROM usuario;";
-        try (Statement stm = this.conn.createStatement();
-                ResultSet rs = stm.executeQuery(sql)) {
-
-            Object usuario;
-            Login login;
-            lista = new ArrayList<>();
+    public Usuario buscarPorLogin(int cod) {
+        String sql = "select * from usuario where login_usu=?";
+        Usuario usuario = null;
+        try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
+            pstm.setInt(1, cod);
+            ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                login = (Login) new LoginDAO().buscar(rs.getInt("login_usu"));
-                usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), rs.getDate("data_nascimento_usu"), login);
-
-                lista.add((Usuario) usuario);
+                Login login = new LoginDAO().buscar(rs.getInt("login_usu"));
+                usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), rs.getString("data_nascimento_usu"), login);
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao listar usuarios: " + e.getMessage());
+            System.err.println("Erro ao buscar usuário por login: " + e.getMessage());
         }
-        return lista;
+        return usuario;
     }
 }
