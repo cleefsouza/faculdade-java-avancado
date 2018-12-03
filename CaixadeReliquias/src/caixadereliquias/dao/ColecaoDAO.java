@@ -52,6 +52,17 @@ public class ColecaoDAO implements IColecao {
     }
 
     @Override
+    public void removerColecionaveisPorColecao(int cod) {
+        String sql = "DELETE FROM colecionavel WHERE colecao_cole = ?;";
+        try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
+            pstm.setInt(1, cod);
+            pstm.execute();
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover colecionaveis pela coleção: " + e.getMessage());
+        }
+    }
+
+    @Override
     public void alterar(Colecao colecao) {
         String sql = "UPDATE colecao SET nome_col=?, descricao_col=? WHERE cod_col = ?;";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
@@ -70,6 +81,24 @@ public class ColecaoDAO implements IColecao {
         String sql = "SELECT * FROM colecao WHERE cod_col = ?";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new UsuarioDAO().buscar(rs.getInt("usuario_col"));
+                colecao = new Colecao(rs.getInt("cod_col"), rs.getString("nome_col"), rs.getString("descricao_col"), rs.getString("data_criacao_col"), usuario);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar coleção: " + e.getMessage());
+        }
+        return colecao;
+    }
+    
+    @Override
+    public Colecao buscarPorNome(String nome) {
+        Colecao colecao = null;
+        String sql = "SELECT * FROM colecao WHERE nome_col = ?";
+        try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
+            pstm.setString(1, nome);
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {

@@ -47,7 +47,6 @@ public class LoginDAO implements ILogin {
             pstm.setString(2, login.getPassword_log());
             pstm.setInt(3, login.getCod_log());
             pstm.execute();
-            System.out.println("Login alterado com sucesso!");
         } catch (SQLException e) {
             System.err.println("Erro ao alterar login: " + e.getMessage());
         }

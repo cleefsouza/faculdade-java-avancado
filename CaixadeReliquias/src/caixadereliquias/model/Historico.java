@@ -42,6 +42,15 @@ public class Historico {
         this.colecao_his = col;
         this.colecionavel_his = cole;
     }
+    
+    public Historico(String des, String ho, String da, String us, String col, String cole) {
+        this.descricao_his = des;
+        this.hora_atualizacao_his = ho;
+        this.data_atualizacao_his = da;
+        this.usuario_his = us;
+        this.colecao_his = col;
+        this.colecionavel_his = cole;
+    }
 
     // getters e setters
     /**

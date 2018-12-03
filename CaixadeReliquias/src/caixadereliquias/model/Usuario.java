@@ -25,6 +25,12 @@ public class Usuario {
         this.login_usu = lo;
     }
 
+    public Usuario(String no, String da, Login lo) {
+        this.nome_usu = no;
+        this.data_nascimento_usu = da;
+        this.login_usu = lo;
+    }
+
     // getters e setters
     /**
      * @return the cod_usu
@@ -58,16 +64,14 @@ public class Usuario {
      * @return the data_nascimento_usu
      */
     public String getData_nascimento_usu() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(data_nascimento_usu);
+        return data_nascimento_usu;
     }
 
     /**
      * @param data_nascimento_usu the data_nascimento_usu to set
      */
     public void setData_nascimento_usu(String data_nascimento_usu) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        this.data_nascimento_usu = sdf.format(data_nascimento_usu);
+        this.data_nascimento_usu = data_nascimento_usu;
     }
 
     /**

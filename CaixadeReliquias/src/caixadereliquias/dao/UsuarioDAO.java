@@ -31,7 +31,6 @@ public class UsuarioDAO implements IUsuario {
             pstm.setString(2, usuario.getData_nascimento_usu());
             pstm.setInt(3, usuario.getCod_usu());
             pstm.execute();
-            System.out.println("Login alterado com sucesso!");
         } catch (SQLException e) {
             System.err.println("Erro ao alterar usuario: " + e.getMessage());
         }

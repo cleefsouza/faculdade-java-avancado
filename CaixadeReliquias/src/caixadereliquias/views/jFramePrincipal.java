@@ -9,6 +9,7 @@ import caixadereliquias.dao.ColecaoDAO;
 import caixadereliquias.dao.ColecionavelDAO;
 import caixadereliquias.dao.EstadoDAO;
 import caixadereliquias.dao.HistoricoDAO;
+import caixadereliquias.dao.LoginDAO;
 import caixadereliquias.dao.UsuarioDAO;
 import caixadereliquias.model.Colecao;
 import caixadereliquias.model.Colecionavel;
@@ -35,11 +36,12 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Wendeley
+ * @author cleefsouza
  */
 public class jFramePrincipal extends javax.swing.JFrame {
 
     Login login;
+    LoginDAO logind;
     Usuario usuario;
     UsuarioDAO usuariod;
     Colecao colecao;
@@ -50,6 +52,9 @@ public class jFramePrincipal extends javax.swing.JFrame {
     HistoricoDAO historicod;
     Estado estado;
     EstadoDAO estadod;
+    Date data = new Date(System.currentTimeMillis());
+    SimpleDateFormat sdfd;
+    SimpleDateFormat sdfh;
 
     /**
      * Creates new form jFramePrincipal
@@ -83,7 +88,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable5.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable5.setRowHeight(30);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             jTable5.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -92,7 +97,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable4.setRowHeight(30);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             jTable4.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -101,7 +106,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable6.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable6.setRowHeight(30);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             jTable6.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -110,7 +115,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable7.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable7.setRowHeight(30);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             jTable7.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -119,7 +124,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable8.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable8.setRowHeight(30);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             jTable8.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -128,7 +133,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable9.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable9.setRowHeight(30);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             jTable9.getColumnModel().getColumn(i).setCellRenderer(center);
         }
 
@@ -137,7 +142,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable10.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTable10.setRowHeight(30);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             jTable10.getColumnModel().getColumn(i).setCellRenderer(center);
         }
     }
@@ -147,6 +152,11 @@ public class jFramePrincipal extends javax.swing.JFrame {
         this.login = log;
         this.usuario = usuariod.buscarPorLogin(this.login.getCod_log());
 
+        this.exibirNome();
+        this.showResumo();
+    }
+
+    final void exibirNome() {
         // usuario está conectado
         jLabel11.setText("<html>Bem vindo, <b>" + this.usuario.getNome_usu() + "</b></html>");
         jLabel30.setText(this.usuario.getNome_usu());
@@ -154,8 +164,6 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel41.setText(this.usuario.getNome_usu());
         jLabel60.setText(this.usuario.getNome_usu());
         jLabel69.setText(this.usuario.getNome_usu());
-
-        this.showResumo();
     }
 
     final void showResumo() {
@@ -196,14 +204,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmHis = (DefaultTableModel) jTable5.getModel();
         dtmHis.setNumRows(0);
         for (Historico h : historicod.listarRecentes(7)) {
-            dtmHis.addRow(new String[]{h.getDescricao_his(), h.getColecionavel_his(), h.getColecao_his(), h.getData_atualizacao_his(), h.getHora_atualizacao_his(), h.getUsuario_his()});
+            dtmHis.addRow(new String[]{"" + h.getCod_his(), h.getDescricao_his(), h.getColecionavel_his(), h.getColecao_his(), h.getData_atualizacao_his(), h.getHora_atualizacao_his(), h.getUsuario_his()});
         }
 
         this.colecionaveld = new ColecionavelDAO();
         DefaultTableModel dtmCol = (DefaultTableModel) jTable4.getModel();
         dtmCol.setNumRows(0);
         for (Colecionavel c : colecionaveld.listarRecentes(7)) {
-            dtmCol.addRow(new String[]{c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
+            dtmCol.addRow(new String[]{"" + c.getCod_cole(), c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
         }
     }
 
@@ -212,7 +220,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmHis = (DefaultTableModel) jTable8.getModel();
         dtmHis.setNumRows(0);
         for (Historico h : historicod.listar()) {
-            dtmHis.addRow(new String[]{h.getDescricao_his(), h.getColecionavel_his(), h.getColecao_his(), h.getData_atualizacao_his(), h.getHora_atualizacao_his(), h.getUsuario_his()});
+            dtmHis.addRow(new String[]{"" + h.getCod_his(), h.getDescricao_his(), h.getColecionavel_his(), h.getColecao_his(), h.getData_atualizacao_his(), h.getHora_atualizacao_his(), h.getUsuario_his()});
         }
     }
 
@@ -221,7 +229,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmCol = (DefaultTableModel) jTable6.getModel();
         dtmCol.setNumRows(0);
         for (Colecionavel c : colecionaveld.listarRecentes(14)) {
-            dtmCol.addRow(new String[]{c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
+            dtmCol.addRow(new String[]{"" + c.getCod_cole(), c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
         }
     }
 
@@ -230,8 +238,20 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmCol = (DefaultTableModel) jTable9.getModel();
         dtmCol.setNumRows(0);
         for (Colecionavel c : colecionaveld.listar()) {
-            dtmCol.addRow(new String[]{c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
+            dtmCol.addRow(new String[]{"" + c.getCod_cole(), c.getNome_cole(), c.getDescricao_cole(), c.getEstado_cole().getDescricao_est(), c.getColecao_cole().getNome_col()});
         }
+
+        jTextField3.setEnabled(false);
+        jTextField2.setEnabled(false);
+        jTextField3.setText("");
+        jTextField2.setText("");
+        jLabel8.setEnabled(false);
+        jLabel64.setEnabled(false);
+        jComboBox3.removeAllItems();
+        jComboBox4.removeAllItems();
+        jComboBox3.setEnabled(false);
+        jComboBox4.setEnabled(false);
+
     }
 
     final void showColecaoMenu1() {
@@ -239,7 +259,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmCol = (DefaultTableModel) jTable7.getModel();
         dtmCol.setNumRows(0);
         for (Colecao c : colecaod.listarRecentes(14)) {
-            dtmCol.addRow(new String[]{c.getNome_col(), c.getDescricao_col(), "" + colecaod.qtdColecionaveis(c.getCod_col()), c.getData_criacao_col()});
+            dtmCol.addRow(new String[]{"" + c.getCod_col(), c.getNome_col(), c.getDescricao_col(), "" + colecaod.qtdColecionaveis(c.getCod_col()), c.getData_criacao_col()});
         }
     }
 
@@ -248,8 +268,13 @@ public class jFramePrincipal extends javax.swing.JFrame {
         DefaultTableModel dtmCol = (DefaultTableModel) jTable10.getModel();
         dtmCol.setNumRows(0);
         for (Colecao c : colecaod.listar()) {
-            dtmCol.addRow(new String[]{c.getNome_col(), c.getDescricao_col(), "" + colecaod.qtdColecionaveis(c.getCod_col()), c.getData_criacao_col()});
+            dtmCol.addRow(new String[]{"" + c.getCod_col(), c.getNome_col(), c.getDescricao_col(), "" + colecaod.qtdColecionaveis(c.getCod_col()), c.getData_criacao_col()});
         }
+
+        jTextField9.setEnabled(false);
+        jTextField10.setEnabled(false);
+        jLabel84.setEnabled(false);
+        jLabel86.setEnabled(false);
     }
 
     final void preencherCombobox() {
@@ -268,6 +293,22 @@ public class jFramePrincipal extends javax.swing.JFrame {
         }
     }
 
+    final void preencherComboboxAlterar() {
+        colecaod = new ColecaoDAO();
+        jComboBox4.removeAllItems();
+        jComboBox4.addItem("Selecione um");
+        for (Colecao c : colecaod.listar()) {
+            jComboBox4.addItem(c.getNome_col());
+        }
+
+        estadod = new EstadoDAO();
+        jComboBox3.removeAllItems();
+        jComboBox3.addItem("Selecione um");
+        for (Estado c : estadod.listar()) {
+            jComboBox3.addItem(c.getDescricao_est());
+        }
+    }
+
     final void limparCamposColecionavel() {
         jTextField1.setText("");
         jTextArea1.setText("");
@@ -277,6 +318,44 @@ public class jFramePrincipal extends javax.swing.JFrame {
     final void limparCamposColecao() {
         jTextField4.setText("");
         jTextArea3.setText("");
+    }
+
+    final void preencherUsuarioLogin() {
+        usuariod = new UsuarioDAO();
+        logind = new LoginDAO();
+        usuario = usuariod.buscar(usuario.getCod_usu());
+        login = logind.buscar(login.getCod_log());
+
+        // preencher campos com usuario e login
+        jTextField5.setText(usuario.getNome_usu());
+
+        // calculo idade
+        int ano_nascimento = Integer.parseInt(usuario.getData_nascimento_usu().substring(6));
+        sdfd = new SimpleDateFormat("yyyy");
+        int ano_atual = Integer.parseInt(sdfd.format(data));
+        int aniversario = ano_atual - ano_nascimento;
+
+        jFormattedTextField1.setText("" + aniversario);
+        jFormattedTextField2.setText(usuario.getData_nascimento_usu());
+
+        jTextField6.setText(login.getUser_log());
+        jPasswordField1.setText(login.getPassword_log());
+    }
+
+    final void limparCamposUsuarioLogin() {
+        // preencher campos com usuario e login
+        jTextField5.setText("");
+        jFormattedTextField1.setText("");
+        jFormattedTextField2.setText("");
+        jTextField6.setText("");
+        jPasswordField1.setText("");
+        jPasswordField1.setEchoChar('*');
+
+        jTextField5.setEnabled(false);
+        jFormattedTextField2.setEnabled(false);
+        jTextField6.setEnabled(false);
+        jPasswordField1.setEnabled(false);
+        jCheckBox1.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -347,6 +426,19 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel61 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel66 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel71 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel73 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         jPanelColecoes = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
@@ -395,8 +487,8 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jLabel57 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel8 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         jPanelListarColecao = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
@@ -408,6 +500,15 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel81 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        jCheckBox4 = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -576,14 +677,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Ação", "Colecionável", "Coleçao", "Data", "Hora", "Usuário"
+                "#", "Ação", "Colecionável", "Coleçao", "Data", "Hora", "Usuário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -594,7 +695,6 @@ public class jFramePrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable5.setColumnSelectionAllowed(true);
         jTable5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable5.setGridColor(new java.awt.Color(102, 102, 102));
         jTable5.setRowHeight(25);
@@ -602,15 +702,16 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable5.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jTable5.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(jTable5);
-        jTable5.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable5.getColumnModel().getColumnCount() > 0) {
-            jTable5.getColumnModel().getColumn(0).setMinWidth(80);
-            jTable5.getColumnModel().getColumn(1).setMinWidth(120);
-            jTable5.getColumnModel().getColumn(2).setMinWidth(90);
-            jTable5.getColumnModel().getColumn(3).setMinWidth(70);
-            jTable5.getColumnModel().getColumn(4).setMinWidth(60);
-            jTable5.getColumnModel().getColumn(4).setPreferredWidth(60);
+            jTable5.getColumnModel().getColumn(0).setResizable(false);
+            jTable5.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable5.getColumnModel().getColumn(1).setMinWidth(150);
+            jTable5.getColumnModel().getColumn(2).setMinWidth(120);
+            jTable5.getColumnModel().getColumn(3).setMinWidth(90);
+            jTable5.getColumnModel().getColumn(4).setMinWidth(70);
             jTable5.getColumnModel().getColumn(5).setMinWidth(60);
+            jTable5.getColumnModel().getColumn(5).setPreferredWidth(60);
+            jTable5.getColumnModel().getColumn(6).setMinWidth(60);
         }
 
         jPanel11.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 340, 420, 250));
@@ -627,14 +728,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Colecionável", "Descrição", "Estado", "Coleçao"
+                "#", "Colecionável", "Descrição", "Estado", "Coleçao"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -645,7 +746,6 @@ public class jFramePrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable4.setColumnSelectionAllowed(true);
         jTable4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable4.setGridColor(new java.awt.Color(102, 102, 102));
         jTable4.setOpaque(false);
@@ -655,13 +755,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane7.setViewportView(jTable4);
-        jTable4.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(0).setMinWidth(120);
-            jTable4.getColumnModel().getColumn(1).setMinWidth(150);
-            jTable4.getColumnModel().getColumn(2).setMinWidth(60);
-            jTable4.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable4.getColumnModel().getColumn(3).setMinWidth(90);
+            jTable4.getColumnModel().getColumn(0).setResizable(false);
+            jTable4.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable4.getColumnModel().getColumn(1).setMinWidth(120);
+            jTable4.getColumnModel().getColumn(2).setMinWidth(150);
+            jTable4.getColumnModel().getColumn(3).setMinWidth(60);
+            jTable4.getColumnModel().getColumn(3).setPreferredWidth(60);
+            jTable4.getColumnModel().getColumn(4).setMinWidth(90);
         }
 
         jPanel11.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 420, 250));
@@ -696,7 +797,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(1, 1, 1, 0.7f));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -851,14 +952,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Colecionável", "Descrição", "Estado", "Coleção"
+                "#", "Colecionável", "Descrição", "Estado", "Coleção"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -875,10 +976,12 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable6.getTableHeader().setReorderingAllowed(false);
         jScrollPane6.setViewportView(jTable6);
         if (jTable6.getColumnModel().getColumnCount() > 0) {
-            jTable6.getColumnModel().getColumn(0).setMinWidth(160);
-            jTable6.getColumnModel().getColumn(1).setMinWidth(350);
-            jTable6.getColumnModel().getColumn(2).setMinWidth(110);
-            jTable6.getColumnModel().getColumn(3).setMinWidth(160);
+            jTable6.getColumnModel().getColumn(0).setResizable(false);
+            jTable6.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable6.getColumnModel().getColumn(1).setMinWidth(160);
+            jTable6.getColumnModel().getColumn(2).setMinWidth(350);
+            jTable6.getColumnModel().getColumn(3).setMinWidth(110);
+            jTable6.getColumnModel().getColumn(4).setMinWidth(160);
         }
 
         jPanel2.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 610, 470));
@@ -965,14 +1068,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Colecionável", "Descrição", "Estado", "Coleção"
+                "#", "Colecionável", "Descrição", "Estado", "Coleção"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -987,15 +1090,22 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable9.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jTable9.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jTable9.getTableHeader().setReorderingAllowed(false);
+        jTable9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable9MouseClicked(evt);
+            }
+        });
         jScrollPane12.setViewportView(jTable9);
         if (jTable9.getColumnModel().getColumnCount() > 0) {
-            jTable9.getColumnModel().getColumn(0).setMinWidth(160);
-            jTable9.getColumnModel().getColumn(1).setMinWidth(604);
-            jTable9.getColumnModel().getColumn(2).setMinWidth(120);
-            jTable9.getColumnModel().getColumn(3).setMinWidth(160);
+            jTable9.getColumnModel().getColumn(0).setResizable(false);
+            jTable9.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable9.getColumnModel().getColumn(1).setMinWidth(160);
+            jTable9.getColumnModel().getColumn(2).setMinWidth(604);
+            jTable9.getColumnModel().getColumn(3).setMinWidth(120);
+            jTable9.getColumnModel().getColumn(4).setMinWidth(160);
         }
 
-        jPanelListarColecionaveis.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 1050, 410));
+        jPanelListarColecionaveis.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1050, 320));
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1050,11 +1160,151 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel62.setForeground(new java.awt.Color(255, 255, 255));
         jLabel62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/star.png"))); // NOI18N
         jLabel62.setText("Meus Colecionáveis");
-        jPanelListarColecionaveis.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jPanelListarColecionaveis.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jSeparator10.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jPanelListarColecionaveis.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1050, 10));
+        jPanelListarColecionaveis.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 1050, 10));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+
+        jTextField3.setToolTipText("Nome do colecionável");
+        jTextField3.setMinimumSize(new java.awt.Dimension(14, 25));
+        jTextField3.setPreferredSize(new java.awt.Dimension(73, 25));
+
+        jLabel66.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel66.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel66.setText("Colecionável:");
+
+        jTextField2.setToolTipText("Nome do colecionável");
+        jTextField2.setMinimumSize(new java.awt.Dimension(14, 25));
+        jTextField2.setPreferredSize(new java.awt.Dimension(73, 25));
+
+        jLabel71.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel71.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel71.setText("Descrição:");
+
+        jComboBox3.setToolTipText("Selecione o estado");
+        jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel72.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel72.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel72.setText("Estado:");
+
+        jLabel64.setBackground(new java.awt.Color(0, 153, 204));
+        jLabel64.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel64.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel64.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/wrench_orange.png"))); // NOI18N
+        jLabel64.setText("Atualizar");
+        jLabel64.setToolTipText("Atualizar colecionável");
+        jLabel64.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel64.setOpaque(true);
+        jLabel64.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel64MouseClicked(evt);
+            }
+        });
+
+        jComboBox4.setToolTipText("Selecione a coleção");
+        jComboBox4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel65.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel65.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel65.setText("Coleção:");
+
+        jLabel8.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/delete.png"))); // NOI18N
+        jLabel8.setText("Remover");
+        jLabel8.setToolTipText("Remover colecionável");
+        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel8.setOpaque(true);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+
+        jLabel73.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel73.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/flag_green.png"))); // NOI18N
+        jLabel73.setText("Ações");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel72)
+                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel65)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel64, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel73)
+                    .addComponent(jLabel72)
+                    .addComponent(jLabel66))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel71)
+                    .addComponent(jLabel65))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelListarColecionaveis.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, 630, 130));
+
+        jCheckBox3.setBackground(new java.awt.Color(204, 204, 204));
+        jCheckBox3.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jCheckBox3.setForeground(new java.awt.Color(51, 51, 51));
+        jCheckBox3.setToolTipText("Clique para habilitar o painel");
+        jCheckBox3.setAlignmentX(0.5F);
+        jCheckBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jCheckBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/key.png"))); // NOI18N
+        jCheckBox3.setOpaque(false);
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+        jPanelListarColecionaveis.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 460, 40, 40));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/abstract.jpg"))); // NOI18N
         jPanelListarColecionaveis.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 710));
@@ -1127,7 +1377,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
         jPanelColecoes.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 210, 70));
 
-        jPanel4.setBackground(new java.awt.Color(1, 1, 1, 0.7f));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel39.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -1221,14 +1471,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Coleção", "Descrição", "Total de Itens", "Data Criação"
+                "#", "Coleção", "Descrição", "Total de Itens", "Data Criação"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1245,10 +1495,12 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable7.getTableHeader().setReorderingAllowed(false);
         jScrollPane10.setViewportView(jTable7);
         if (jTable7.getColumnModel().getColumnCount() > 0) {
-            jTable7.getColumnModel().getColumn(0).setMinWidth(160);
-            jTable7.getColumnModel().getColumn(1).setMinWidth(310);
-            jTable7.getColumnModel().getColumn(2).setMinWidth(80);
-            jTable7.getColumnModel().getColumn(3).setMinWidth(100);
+            jTable7.getColumnModel().getColumn(0).setResizable(false);
+            jTable7.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable7.getColumnModel().getColumn(1).setMinWidth(160);
+            jTable7.getColumnModel().getColumn(2).setMinWidth(310);
+            jTable7.getColumnModel().getColumn(3).setMinWidth(80);
+            jTable7.getColumnModel().getColumn(4).setMinWidth(100);
         }
 
         jPanelColecoes.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 610, 470));
@@ -1277,14 +1529,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Ação", "Colecionável", "Coleção", "Data", "Hora", "Usuário"
+                "#", "Ação", "Colecionável", "Coleção", "Data", "Hora", "Usuário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1301,12 +1553,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable8.getTableHeader().setReorderingAllowed(false);
         jScrollPane11.setViewportView(jTable8);
         if (jTable8.getColumnModel().getColumnCount() > 0) {
-            jTable8.getColumnModel().getColumn(0).setMinWidth(80);
-            jTable8.getColumnModel().getColumn(1).setMinWidth(110);
-            jTable8.getColumnModel().getColumn(2).setMinWidth(150);
-            jTable8.getColumnModel().getColumn(3).setMinWidth(100);
-            jTable8.getColumnModel().getColumn(4).setMinWidth(80);
-            jTable8.getColumnModel().getColumn(5).setMinWidth(150);
+            jTable8.getColumnModel().getColumn(0).setResizable(false);
+            jTable8.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable8.getColumnModel().getColumn(1).setMinWidth(150);
+            jTable8.getColumnModel().getColumn(2).setMinWidth(110);
+            jTable8.getColumnModel().getColumn(3).setMinWidth(150);
+            jTable8.getColumnModel().getColumn(4).setMinWidth(100);
+            jTable8.getColumnModel().getColumn(5).setMinWidth(80);
+            jTable8.getColumnModel().getColumn(6).setMinWidth(150);
         }
 
         jPanel5.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 610, 420));
@@ -1386,15 +1640,15 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel50.setText("Perfil do Usuário");
         jPanel5.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        jPanel6.setBackground(new java.awt.Color(1, 1, 1, 0.7f));
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel51.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel51.setForeground(new java.awt.Color(51, 51, 51));
         jLabel51.setText("Nome:");
 
-        jTextField5.setEditable(false);
-        jTextField5.setToolTipText("Digite o Nome");
+        jTextField5.setToolTipText("Nome do Usuário");
+        jTextField5.setEnabled(false);
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -1413,6 +1667,11 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel53.setToolTipText("Inserir colecionável");
         jLabel53.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel53.setOpaque(true);
+        jLabel53.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel53MouseClicked(evt);
+            }
+        });
 
         jLabel54.setBackground(new java.awt.Color(255, 153, 0));
         jLabel54.setForeground(new java.awt.Color(51, 51, 51));
@@ -1422,22 +1681,28 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel54.setToolTipText("Cancelar ação");
         jLabel54.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel54.setOpaque(true);
+        jLabel54.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel54MouseClicked(evt);
+            }
+        });
 
-        jFormattedTextField1.setEditable(false);
         try {
             jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## anos")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setToolTipText("");
+        jFormattedTextField1.setToolTipText("Idade do Usuário");
+        jFormattedTextField1.setEnabled(false);
 
-        jFormattedTextField2.setEditable(false);
         try {
             jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField2.setToolTipText("");
+        jFormattedTextField2.setText("");
+        jFormattedTextField2.setToolTipText("Nascimento do Usuário");
+        jFormattedTextField2.setEnabled(false);
 
         jLabel55.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(51, 51, 51));
@@ -1447,8 +1712,8 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel56.setForeground(new java.awt.Color(51, 51, 51));
         jLabel56.setText("User:");
 
-        jTextField6.setEditable(false);
-        jTextField6.setToolTipText("Digite o Nome");
+        jTextField6.setToolTipText("User do Login");
+        jTextField6.setEnabled(false);
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -1459,18 +1724,31 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel57.setForeground(new java.awt.Color(51, 51, 51));
         jLabel57.setText("Password:");
 
-        jPasswordField1.setEditable(false);
-        jPasswordField1.setText("jPasswordField1");
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/eye.png"))); // NOI18N
-        jLabel8.setToolTipText("Revelar senha");
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPasswordField1.setToolTipText("Password do Login");
+        jPasswordField1.setEnabled(false);
 
         jCheckBox1.setForeground(new java.awt.Color(51, 51, 51));
         jCheckBox1.setText("Atualizar Informações?");
         jCheckBox1.setToolTipText("Marque se deseja alterar algo");
         jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setToolTipText("Revelar senha");
+        jCheckBox2.setAlignmentX(0.5F);
+        jCheckBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jCheckBox2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jCheckBox2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/eye.png"))); // NOI18N
+        jCheckBox2.setIconTextGap(1);
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1498,15 +1776,15 @@ public class jFramePrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel57)
                             .addComponent(jLabel51)
                             .addComponent(jLabel56)
-                            .addComponent(jLabel57)
-                            .addComponent(jCheckBox1))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                            .addComponent(jCheckBox1)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox2)))
+                        .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -1535,9 +1813,9 @@ public class jFramePrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel57)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel8)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1580,14 +1858,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Coleção", "Descrição", "Total de Itens", "Data Criação"
+                "#", "Coleção", "Descrição", "Total de Itens", "Data Criação"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1602,25 +1880,32 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTable10.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jTable10.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jTable10.getTableHeader().setReorderingAllowed(false);
+        jTable10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable10MouseClicked(evt);
+            }
+        });
         jScrollPane13.setViewportView(jTable10);
         if (jTable10.getColumnModel().getColumnCount() > 0) {
-            jTable10.getColumnModel().getColumn(0).setMinWidth(200);
-            jTable10.getColumnModel().getColumn(1).setMinWidth(624);
-            jTable10.getColumnModel().getColumn(2).setMinWidth(100);
-            jTable10.getColumnModel().getColumn(3).setMinWidth(120);
+            jTable10.getColumnModel().getColumn(0).setResizable(false);
+            jTable10.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable10.getColumnModel().getColumn(1).setMinWidth(200);
+            jTable10.getColumnModel().getColumn(2).setMinWidth(624);
+            jTable10.getColumnModel().getColumn(3).setMinWidth(100);
+            jTable10.getColumnModel().getColumn(4).setMinWidth(120);
         }
 
-        jPanelListarColecao.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 1050, 410));
+        jPanelListarColecao.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1050, 320));
 
         jLabel67.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel67.setForeground(new java.awt.Color(255, 255, 255));
         jLabel67.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/star.png"))); // NOI18N
         jLabel67.setText("Minhas Coleções");
-        jPanelListarColecao.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jPanelListarColecao.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         jSeparator11.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jPanelListarColecao.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 1050, 10));
+        jPanelListarColecao.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 1050, 10));
 
         jPanel17.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1667,6 +1952,122 @@ public class jFramePrincipal extends javax.swing.JFrame {
         );
 
         jPanelListarColecao.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, 210, 70));
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+
+        jTextField9.setToolTipText("Nome do colecionável");
+        jTextField9.setMinimumSize(new java.awt.Dimension(14, 25));
+        jTextField9.setPreferredSize(new java.awt.Dimension(73, 25));
+
+        jLabel81.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel81.setText("Coleção:");
+
+        jTextField10.setToolTipText("Nome do colecionável");
+        jTextField10.setMinimumSize(new java.awt.Dimension(14, 25));
+        jTextField10.setPreferredSize(new java.awt.Dimension(73, 25));
+
+        jLabel82.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel82.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel82.setText("Descrição:");
+
+        jLabel84.setBackground(new java.awt.Color(0, 153, 204));
+        jLabel84.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/wrench_orange.png"))); // NOI18N
+        jLabel84.setText("Atualizar");
+        jLabel84.setToolTipText("Atualizar colecionável");
+        jLabel84.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel84.setOpaque(true);
+        jLabel84.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel84MouseClicked(evt);
+            }
+        });
+
+        jLabel86.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel86.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel86.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/delete.png"))); // NOI18N
+        jLabel86.setText("Remover");
+        jLabel86.setToolTipText("Remover colecionável");
+        jLabel86.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel86.setOpaque(true);
+        jLabel86.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel86MouseClicked(evt);
+            }
+        });
+
+        jLabel87.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel87.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel87.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/flag_green.png"))); // NOI18N
+        jLabel87.setText("Ações");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel86, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(220, 220, 220))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addComponent(jLabel87)
+                            .addGap(93, 93, 93)))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel81)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel82)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        jPanelListarColecao.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 410, 130));
+
+        jCheckBox4.setBackground(new java.awt.Color(204, 204, 204));
+        jCheckBox4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jCheckBox4.setForeground(new java.awt.Color(51, 51, 51));
+        jCheckBox4.setToolTipText("Clique para habilitar o painel");
+        jCheckBox4.setAlignmentX(0.5F);
+        jCheckBox4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jCheckBox4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCheckBox4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/key.png"))); // NOI18N
+        jCheckBox4.setOpaque(false);
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
+        jPanelListarColecao.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 460, 40, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/abstract.jpg"))); // NOI18N
         jPanelListarColecao.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 710));
@@ -1729,7 +2130,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jMenu2.setText("Coleções");
         jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/box.png"))); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/wrench_orange.png"))); // NOI18N
         jMenuItem4.setText("Gerenciar Coleções");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1857,6 +2258,12 @@ public class jFramePrincipal extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) jPanelPai.getLayout();
         cl.show(jPanelPai, "cardPerfil");
 
+        // limpar campos
+        this.limparCamposUsuarioLogin();
+
+        // preenche formulario
+        this.preencherUsuarioLogin();
+
         // lista historico no perfil
         this.showHistoricoPerfil();
     }//GEN-LAST:event_jMenu4MouseClicked
@@ -1878,20 +2285,28 @@ public class jFramePrincipal extends javax.swing.JFrame {
         if (jTextField1.getText().equals("") || jTextArea1.getText().equals("") || jComboBox1.getSelectedItem().equals("Selecione um") || jComboBox2.getSelectedItem().equals("Selecione um")) {
             URL url = this.getClass().getResource("error-icon.png");
             ImageIcon imgIcon = new ImageIcon(url);
-            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b></html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b>.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
         } else {
 
             // inserir colecionavel
             colecaod = new ColecaoDAO();
             estadod = new EstadoDAO();
-            colecionavel = new Colecionavel(jTextField1.getText(), jTextArea1.getText(), colecaod.buscar(jComboBox1.getSelectedIndex()), estadod.buscar(jComboBox2.getSelectedIndex()));
+            colecionavel = new Colecionavel(jTextField1.getText(), jTextArea1.getText(), colecaod.buscarPorNome(jComboBox1.getSelectedItem().toString()), estadod.buscar(jComboBox2.getSelectedIndex()));
 
             colecionaveld = new ColecionavelDAO();
             colecionaveld.adicionar(colecionavel);
 
+            // historico
+            sdfd = new SimpleDateFormat("dd/MM/yyyy");
+            sdfh = new SimpleDateFormat("HH:mm");
+
+            historico = new Historico("Inserção, Colecionável", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), jComboBox1.getSelectedItem().toString(), colecionavel.getNome_cole());
+            historicod = new HistoricoDAO();
+            historicod.registrarAcao(historico);
+
             URL url = this.getClass().getResource("information-icon.png");
             ImageIcon imgIcon = new ImageIcon(url);
-            JOptionPane.showMessageDialog(null, "<html>Colecionável <b>inserido</b> com <b>sucesso</>!</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+            JOptionPane.showMessageDialog(null, "<html>Colecionável <b>inserido</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
 
             this.limparCamposColecionavel(); // limpar campos dor formulario
             this.showColecionaveisMenu1(); // atualizar table            
@@ -1906,26 +2321,302 @@ public class jFramePrincipal extends javax.swing.JFrame {
         if (jTextField4.getText().equals("") || jTextArea3.getText().equals("")) {
             URL url = this.getClass().getResource("error-icon.png");
             ImageIcon imgIcon = new ImageIcon(url);
-            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b></html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b>.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
         } else {
 
             // inserir coleção
             usuariod = new UsuarioDAO();
-            Date data = new Date(System.currentTimeMillis()); // data atual
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            colecao = new Colecao(jTextField4.getText(), jTextArea3.getText(), sdf.format(data), usuario);
+            sdfd = new SimpleDateFormat("dd/MM/yyyy");
+            colecao = new Colecao(jTextField4.getText(), jTextArea3.getText(), sdfd.format(data), usuario);
 
             colecaod = new ColecaoDAO();
             colecaod.adicionar(colecao);
 
+            // historico
+            sdfd = new SimpleDateFormat("dd/MM/yyyy");
+            sdfh = new SimpleDateFormat("HH:mm");
+
+            historico = new Historico("Inserção, Coleção", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), colecao.getNome_col(), "-");
+            historicod = new HistoricoDAO();
+            historicod.registrarAcao(historico);
+
             URL url = this.getClass().getResource("information-icon.png");
             ImageIcon imgIcon = new ImageIcon(url);
-            JOptionPane.showMessageDialog(null, "<html>Coleção <b>inserida</b> com <b>sucesso</>!</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+            JOptionPane.showMessageDialog(null, "<html>Coleção <b>inserida</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
 
             this.limparCamposColecao(); // limpar campos dor formulario
             this.showColecaoMenu1(); // atualizar table            
         }
     }//GEN-LAST:event_jLabel43MouseClicked
+
+    private void jLabel53MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel53MouseClicked
+        if (jTextField5.getText().equals("")
+                || jFormattedTextField2.getText().trim().length() < 10
+                || jTextField6.getText().equals("")
+                || jPasswordField1.getText().equals("")) {
+            URL url = this.getClass().getResource("error-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b>.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+        } else if (jCheckBox1.isSelected() == false) {
+            URL url = this.getClass().getResource("error-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            JOptionPane.showMessageDialog(null, "<html>Selecione o<b> checkbox </b>antes.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+        } else {
+            Login loginAtt = new Login(login.getCod_log(), jTextField6.getText(), jPasswordField1.getText());
+            Usuario usuarioAtt = new Usuario(usuario.getCod_usu(), jTextField5.getText(), jFormattedTextField2.getText(), loginAtt);
+
+            boolean msgUsu = true, msgLog = true;
+
+            if (!loginAtt.getUser_log().equals(login.getUser_log())
+                    || !loginAtt.getPassword_log().equals(login.getPassword_log())) {
+                logind = new LoginDAO();
+                logind.alterar(loginAtt);
+
+                // historico
+                sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                sdfh = new SimpleDateFormat("HH:mm");
+
+                historico = new Historico("Atualização, Login", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), "-", "-");
+                historicod = new HistoricoDAO();
+                historicod.registrarAcao(historico);
+                msgUsu = true;
+            } else {
+                msgUsu = false;
+            }
+
+            if (!usuarioAtt.getNome_usu().equals(usuario.getNome_usu())
+                    || !usuarioAtt.getData_nascimento_usu().equals(usuario.getData_nascimento_usu())) {
+                usuariod = new UsuarioDAO();
+                usuariod.alterar(usuarioAtt);
+
+                // historico
+                sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                sdfh = new SimpleDateFormat("HH:mm");
+
+                historico = new Historico("Atualização, Usuário", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), "-", "-");
+                historicod = new HistoricoDAO();
+                historicod.registrarAcao(historico);
+                msgLog = true;
+            } else {
+                msgLog = false;
+            }
+
+            URL url = this.getClass().getResource("information-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            if (msgUsu == true || msgLog == true) {
+                JOptionPane.showMessageDialog(null, "<html>Usuário <b>atualizado</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+
+                // metodos de exibição
+                this.showHistoricoPerfil();
+                this.limparCamposUsuarioLogin();
+                this.preencherUsuarioLogin();
+                this.exibirNome();
+            } else {
+                JOptionPane.showMessageDialog(null, "<html><b>Nenhuma informação</b> alterada.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+            }
+        }
+    }//GEN-LAST:event_jLabel53MouseClicked
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected() == true) {
+            jTextField5.setEnabled(true);
+            jFormattedTextField2.setEnabled(true);
+            jTextField6.setEnabled(true);
+            jPasswordField1.setEnabled(true);
+        } else {
+            jTextField5.setEnabled(false);
+            jFormattedTextField2.setEnabled(false);
+            jTextField6.setEnabled(false);
+            jPasswordField1.setEnabled(false);
+            jPasswordField1.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        if (jCheckBox2.isSelected() == true && jCheckBox1.isSelected() == true) {
+            jPasswordField1.setEchoChar((char) 0);
+        } else {
+            jPasswordField1.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jLabel54MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel54MouseClicked
+        this.limparCamposUsuarioLogin();
+        this.preencherUsuarioLogin();
+    }//GEN-LAST:event_jLabel54MouseClicked
+
+    private void jTable9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable9MouseClicked
+        int line = jTable9.getSelectedRow();
+        jTextField3.setText(jTable9.getValueAt(line, 1).toString());
+        jTextField2.setText(jTable9.getValueAt(line, 2).toString());
+
+        this.preencherComboboxAlterar();
+
+        jComboBox3.setSelectedItem(jTable9.getValueAt(line, 3).toString());
+        jComboBox4.setSelectedItem(jTable9.getValueAt(line, 4).toString());
+    }//GEN-LAST:event_jTable9MouseClicked
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        if (jCheckBox3.isSelected() == true && jTable9.getSelectedRow() >= 0) {
+            jTextField3.setEnabled(true);
+            jTextField2.setEnabled(true);
+            jComboBox3.setEnabled(true);
+            jComboBox4.setEnabled(true);
+            jLabel8.setEnabled(true);
+            jLabel64.setEnabled(true);
+        } else {
+            jTextField3.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jComboBox3.setEnabled(false);
+            jComboBox4.setEnabled(false);
+            jLabel8.setEnabled(false);
+            jLabel64.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        URL url = this.getClass().getResource("warnning-icon.png");
+        ImageIcon imgIcon = new ImageIcon(url);
+        int opc = JOptionPane.showConfirmDialog(null, "<html>Tem <b>certeza</b> disso?</html>", "Warning Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, imgIcon);
+        if (opc == 0) {
+            colecionaveld = new ColecionavelDAO();
+            int codCole = Integer.parseInt(jTable9.getValueAt(jTable9.getSelectedRow(), 0).toString());
+            colecionaveld.remover(codCole);
+
+            URL url2 = this.getClass().getResource("information-icon.png");
+            ImageIcon imgIcon2 = new ImageIcon(url2);
+            JOptionPane.showMessageDialog(null, "<html>Colecionável  <b>removido</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon2);
+
+            // historico
+            sdfd = new SimpleDateFormat("dd/MM/yyyy");
+            sdfh = new SimpleDateFormat("HH:mm");
+
+            historico = new Historico("Remoção, Colecionável", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), jComboBox4.getSelectedItem().toString(), jTextField3.getText());
+            historicod = new HistoricoDAO();
+            historicod.registrarAcao(historico);
+
+            this.showColecionaveisMenu2();
+        }
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel64MouseClicked
+        if (jTextField2.getText().equals("") || jTextField3.getText().equals("")
+                || jComboBox3.getSelectedIndex() == 0
+                || jComboBox4.getSelectedIndex() == 0) {
+            URL url = this.getClass().getResource("error-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b>.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+        } else {
+            URL url = this.getClass().getResource("warnning-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            int opc = JOptionPane.showConfirmDialog(null, "<html>Tem <b>certeza</b> disso?</html>", "Warning Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, imgIcon);
+            if (opc == 0) {
+                colecaod = new ColecaoDAO();
+                estadod = new EstadoDAO();
+                int codCole = Integer.parseInt(jTable9.getValueAt(jTable9.getSelectedRow(), 0).toString());
+                colecionavel = new Colecionavel(codCole, jTextField3.getText(), jTextField2.getText(), colecaod.buscarPorNome(jComboBox4.getSelectedItem().toString()), estadod.buscar(jComboBox3.getSelectedIndex()));
+
+                colecionaveld = new ColecionavelDAO();
+                colecionaveld.alterar(colecionavel);
+
+                URL url2 = this.getClass().getResource("information-icon.png");
+                ImageIcon imgIcon2 = new ImageIcon(url2);
+                JOptionPane.showMessageDialog(null, "<html>Colecionável  <b>atualizado</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon2);
+
+                // historico
+                sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                sdfh = new SimpleDateFormat("HH:mm");
+
+                historico = new Historico("Atualização, Colecionável", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), jComboBox4.getSelectedItem().toString(), jTextField3.getText());
+                historicod = new HistoricoDAO();
+                historicod.registrarAcao(historico);
+
+                this.showColecionaveisMenu2();
+            }
+        }
+    }//GEN-LAST:event_jLabel64MouseClicked
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        if (jCheckBox4.isSelected() == true && jTable10.getSelectedRow() >= 0) {
+            jTextField9.setEnabled(true);
+            jTextField10.setEnabled(true);
+            jLabel84.setEnabled(true);
+            jLabel86.setEnabled(true);
+        } else {
+            jTextField9.setEnabled(false);
+            jTextField10.setEnabled(false);
+            jLabel84.setEnabled(false);
+            jLabel86.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jLabel84MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel84MouseClicked
+        if (jTextField9.getText().equals("") || jTextField10.getText().equals("")) {
+            URL url = this.getClass().getResource("error-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            JOptionPane.showMessageDialog(null, "<html>Preencha os <b>campos corretamente</b>.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+        } else {
+            URL url = this.getClass().getResource("warnning-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            int opc = JOptionPane.showConfirmDialog(null, "<html>Tem <b>certeza</b> disso?</html>", "Warning Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, imgIcon);
+            if (opc == 0) {
+                colecaod = new ColecaoDAO();
+                int codCole = Integer.parseInt(jTable10.getValueAt(jTable10.getSelectedRow(), 0).toString());
+                data = new Date(System.currentTimeMillis());
+                sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                colecao = new Colecao(codCole, jTextField9.getText(), jTextField10.getText(), sdfd.format(data), usuario);
+
+                colecaod = new ColecaoDAO();
+                colecaod.alterar(colecao);
+
+                URL url2 = this.getClass().getResource("information-icon.png");
+                ImageIcon imgIcon2 = new ImageIcon(url2);
+                JOptionPane.showMessageDialog(null, "<html>Colecionável  <b>atualizado</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon2);
+
+                // historico
+                sdfd = new SimpleDateFormat("dd/MM/yyyy");
+                sdfh = new SimpleDateFormat("HH:mm");
+
+                historico = new Historico("Atualização, Coleção", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), colecao.getNome_col(), "-");
+                historicod = new HistoricoDAO();
+                historicod.registrarAcao(historico);
+
+                this.showColecaoMenu2();
+            }
+        }
+    }//GEN-LAST:event_jLabel84MouseClicked
+
+    private void jLabel86MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel86MouseClicked
+        URL url = this.getClass().getResource("warnning-icon.png");
+        ImageIcon imgIcon = new ImageIcon(url);
+        int opc = JOptionPane.showConfirmDialog(null, "<html>Tem <b>certeza</b> disso?<br/>você irá remover <b>TODOS</b><br/>os colecionáveis desta coleção.</html>", "Warning Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, imgIcon);
+        if (opc == 0) {
+            colecaod = new ColecaoDAO();
+            int codCole = Integer.parseInt(jTable10.getValueAt(jTable10.getSelectedRow(), 0).toString());
+            colecaod.removerColecionaveisPorColecao(codCole);
+            colecaod.remover(codCole);
+
+            URL url2 = this.getClass().getResource("information-icon.png");
+            ImageIcon imgIcon2 = new ImageIcon(url2);
+            JOptionPane.showMessageDialog(null, "<html>Coleção  <b>removida</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon2);
+
+            // historico
+            sdfd = new SimpleDateFormat("dd/MM/yyyy");
+            sdfh = new SimpleDateFormat("HH:mm");
+
+            historico = new Historico("Remoção, Coleção", sdfh.format(data), sdfd.format(data), usuario.getNome_usu(), jTextField9.getText(), "-");
+            historicod = new HistoricoDAO();
+            historicod.registrarAcao(historico);
+
+            this.showColecaoMenu2();
+        }
+    }//GEN-LAST:event_jLabel86MouseClicked
+
+    private void jTable10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable10MouseClicked
+        int line = jTable10.getSelectedRow();
+        jTextField9.setText(jTable10.getValueAt(line, 1).toString());
+        jTextField10.setText(jTable10.getValueAt(line, 2).toString());
+    }//GEN-LAST:event_jTable10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1972,8 +2663,13 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
@@ -2036,12 +2732,23 @@ public class jFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2054,6 +2761,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -2065,6 +2773,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelColecionaveis;
     private javax.swing.JPanel jPanelColecoes;
@@ -2104,8 +2813,12 @@ public class jFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,7 +24,7 @@ public class Colecionavel {
         this.colecao_cole = col;
         this.estado_cole = es;
     }
-    
+
     public Colecionavel(String no, String de, Colecao col, Estado es) {
         this.nome_cole = no;
         this.descricao_cole = de;
