@@ -19,13 +19,21 @@ import caixadereliquias.model.Login;
 import caixadereliquias.model.Usuario;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.Icon;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -519,6 +527,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -541,7 +550,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/sport_8ball.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/controller.png"))); // NOI18N
         jLabel6.setText("Colecionáveis");
         jLabel6.setOpaque(true);
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 50));
@@ -2095,7 +2104,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
 
         jMenu1.setBackground(new java.awt.Color(255, 153, 0));
         jMenu1.setForeground(new java.awt.Color(51, 51, 51));
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/sport_8ball.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/controller.png"))); // NOI18N
         jMenu1.setText("Colecionáveis");
         jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -2161,6 +2170,19 @@ public class jFramePrincipal extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu4);
+
+        jMenu6.setBackground(new java.awt.Color(255, 153, 0));
+        jMenu6.setForeground(new java.awt.Color(51, 51, 51));
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/caixadereliquias/imgs/report.png"))); // NOI18N
+        jMenu6.setText("Sobre");
+        jMenu6.setToolTipText("");
+        jMenu6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
 
         jMenu5.setBackground(new java.awt.Color(255, 153, 0));
         jMenu5.setForeground(new java.awt.Color(51, 51, 51));
@@ -2618,6 +2640,14 @@ public class jFramePrincipal extends javax.swing.JFrame {
         jTextField10.setText(jTable10.getValueAt(line, 2).toString());
     }//GEN-LAST:event_jTable10MouseClicked
 
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        URL url = this.getClass().getResource("information-icon.png");
+        ImageIcon imgIcon = new ImageIcon(url);
+        JOptionPane.showMessageDialog(null, "<html>Sistema Pessoal para <b>Gerenciamento de Colecionáveis</b><br/>"
+                + "------------------------------------------------------------------------------<br/>"
+                + "Gerenciar fluxo de colecionáveis, como também à aquisição<br/>manutenção e classificação dos mesmos.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+    }//GEN-LAST:event_jMenu6MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2755,6 +2785,7 @@ public class jFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
