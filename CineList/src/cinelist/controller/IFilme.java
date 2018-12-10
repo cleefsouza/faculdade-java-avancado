@@ -37,7 +37,7 @@ public interface IFilme {
     int qtdCriticas();
     
     // média das notas
-    double mediaNotas();
+    int mediaNotas();
     
     // filmes recentes
     List<String> filmesRecentes();

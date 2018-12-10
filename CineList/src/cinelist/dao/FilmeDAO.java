@@ -184,8 +184,8 @@ public class FilmeDAO implements IFilme {
     }
 
     @Override
-    public double mediaNotas() {
-        double media = 0;
+    public int mediaNotas() {
+        int media = 0;
         String sql = "select count(nota_fil), sum(nota_fil) from filme";
         try (Statement pstm = this.conn.createStatement();
                 ResultSet rs = pstm.executeQuery(sql)) {
