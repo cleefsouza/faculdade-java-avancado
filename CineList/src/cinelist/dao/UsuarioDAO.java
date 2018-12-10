@@ -57,6 +57,11 @@ public class UsuarioDAO implements IUsuario {
         String sql = "delete from usuario where cod_usu = ?;";
         try (PreparedStatement pstm = this.conn.prepareStatement(sql)) {
             pstm.setInt(1, cod);
+            
+            // removendo login do usuário
+            LoginDAO ld = new LoginDAO();
+            ld.remover(cod);
+            
             pstm.execute();
         } catch (SQLException e) {
             System.err.println("Erro ao remover usuário: " + e.getMessage());
@@ -115,6 +120,26 @@ public class UsuarioDAO implements IUsuario {
             }
         } catch (SQLException e) {
             System.err.println("Erro ao listar usuarios: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    //@Override
+    public List<Usuario> listarNaoLogado(int cod) {
+        List<Usuario> lista = null;
+        String sql = "select * from usuario where cod_usu not like '%" + cod + "%'";
+        try (Statement stm = this.conn.createStatement();
+                ResultSet rs = stm.executeQuery(sql)) {
+
+            lista = new ArrayList<>();
+            while (rs.next()) {
+                Login login = new LoginDAO().buscar(rs.getInt("login_usu"));
+                Tipo tipo = new TipoDAO().buscar(rs.getInt("tipo_usu"));
+                Usuario usuario = new Usuario(rs.getInt("cod_usu"), rs.getString("nome_usu"), login, tipo);
+                lista.add(usuario);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar usuarios não logados: " + e.getMessage());
         }
         return lista;
     }

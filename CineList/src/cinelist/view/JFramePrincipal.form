@@ -2215,7 +2215,7 @@
             <Component class="javax.swing.JLabel" name="jLabelAdministrador">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="33" red="cc" type="rgb"/>
+                  <Color blue="ff" green="66" red="cc" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="13" style="1"/>
@@ -2240,6 +2240,9 @@
                 </Property>
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelAdministradorMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

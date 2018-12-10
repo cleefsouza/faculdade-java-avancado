@@ -150,6 +150,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jfmif.setVisible(true);
     }
 
+    final void frameAdministrador() {
+        // chama tela administrador
+        JFrameAdministrador jfma = new JFrameAdministrador();
+        jfma.buscarUsuario(this.usuario.getCod_usu(), this.usuario.getNome_usu());
+        jfma.setVisible(true);
+    }
+
     final void showGenero() {
         this.generod = new GeneroDAO();
         DefaultTableModel dtmCol = (DefaultTableModel) jTableGeneros.getModel();
@@ -203,7 +210,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jTextFieldTipoUsuario.setText(this.usuario.getTipo_usu().getDescricao_tip());
         jTextFieldLoginUsuario.setText(this.usuario.getLogin_usu().getUsuario_log());
         jPasswordFieldSLoginSenha.setText(this.usuario.getLogin_usu().getSenha_log());
-        
+
         jPasswordFieldSLoginSenha.setEchoChar('*');
     }
 
@@ -1467,7 +1474,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
             jTableHistorico.getColumnModel().getColumn(4).setMinWidth(150);
         }
 
-        jLabelAdministrador.setBackground(new java.awt.Color(204, 51, 255));
+        jLabelAdministrador.setBackground(new java.awt.Color(204, 102, 255));
         jLabelAdministrador.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabelAdministrador.setForeground(new java.awt.Color(51, 51, 51));
         jLabelAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1476,6 +1483,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabelAdministrador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 2));
         jLabelAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelAdministrador.setOpaque(true);
+        jLabelAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdministradorMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelPerfilLayout = new javax.swing.GroupLayout(jPanelPerfil);
         jPanelPerfil.setLayout(jPanelPerfilLayout);
@@ -2069,7 +2081,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 ImageIcon imgIcon2 = new ImageIcon(url2);
                 if (msgUsu == true || msgLog == true) {
                     JOptionPane.showMessageDialog(null, "<html>Usuário <b>atualizado</b> com <b>sucesso</b>.</html>", "Information Message", JOptionPane.INFORMATION_MESSAGE, imgIcon2);
-                    
+
                     showHistorico();
                     showUsuario();
                     exibirNome();
@@ -2079,6 +2091,16 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jLabelAlterarPerfilMouseClicked
+
+    private void jLabelAdministradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdministradorMouseClicked
+        if (this.usuario.getTipo_usu().getDescricao_tip().equals("Administrador")) {
+            frameAdministrador();
+        } else {
+            URL url = this.getClass().getResource("error-icon.png");
+            ImageIcon imgIcon = new ImageIcon(url);
+            JOptionPane.showMessageDialog(null, "<html>Você não é <b>administrador</b> do sistema.</html>", "Error Message", JOptionPane.ERROR_MESSAGE, imgIcon);
+        }
+    }//GEN-LAST:event_jLabelAdministradorMouseClicked
 
     /**
      * @param args the command line arguments

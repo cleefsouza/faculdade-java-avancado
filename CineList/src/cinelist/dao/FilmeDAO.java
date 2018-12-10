@@ -192,8 +192,11 @@ public class FilmeDAO implements IFilme {
 
             int notas = rs.getInt("sum(nota_fil)");
             int qtd = rs.getInt("count(nota_fil)");
-            media = notas / qtd;
-
+            try {
+                media = notas / qtd;
+            } catch (ArithmeticException e) {
+                media = 0;
+            }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar média das notas: " + e.getMessage());
         }

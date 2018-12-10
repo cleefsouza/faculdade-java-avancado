@@ -26,4 +26,7 @@ public interface IUsuario {
 
     // listar
     List<Usuario> listar();
+
+    // listar usuarios não logado
+    //List<Usuario> listarNaoLogado(int cod);
 }

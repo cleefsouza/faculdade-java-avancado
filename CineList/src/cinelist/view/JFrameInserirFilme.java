@@ -34,7 +34,7 @@ public class JFrameInserirFilme extends javax.swing.JFrame {
     String nomeUsuario;
 
     /**
-     * Creates new form JFrameFilmeDetalhado
+     * Creates new form JFrameInserirFilme
      */
     public JFrameInserirFilme() {
         initComponents();
