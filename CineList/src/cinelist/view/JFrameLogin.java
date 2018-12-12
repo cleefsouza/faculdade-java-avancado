@@ -5,6 +5,7 @@ import cinelist.model.Login;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,20 +22,21 @@ public class JFrameLogin extends javax.swing.JFrame {
     public JFrameLogin() {
         initComponents();
         personalizacao();
+        iconeJanela();
     }
 
     public final void personalizacao() {
         setLocationRelativeTo(null);
         jPanel4.setBackground(new Color(0, 0, 0, 0.7f));
     }
-    
+
     // icone na barra
-    /*final void iconeBarra() {
+    final void iconeJanela() {
         // coloca uma figura na barra de título da janela
-        URL url = this.getClass().getResource("bau.png");
+        URL url = this.getClass().getResource("icone_janela.png");
         Image icone = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(icone);
-    }*/
+    }
     
     // chama a proxima tela
     final void framePrincipal(Login login) {
@@ -87,6 +89,11 @@ public class JFrameLogin extends javax.swing.JFrame {
 
         jPasswordField1.setForeground(new java.awt.Color(51, 51, 51));
         jPasswordField1.setToolTipText("Informe sua senha");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(0, 204, 153));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -184,7 +191,7 @@ public class JFrameLogin extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         login = new Login(jTextField1.getText(), jPasswordField1.getText());
         logind = new LoginDAO();
-        
+
         // realizando autenticação
         if (logind.autenticarLogin(login) == true) {
             URL url = this.getClass().getResource("information-icon.png");
@@ -201,6 +208,29 @@ public class JFrameLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "<html><b>Usuário</b> ou <b>senha</b> inválidos!</html>", "Login Inválido", JOptionPane.ERROR_MESSAGE, imgIcon);
         }
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login = new Login(jTextField1.getText(), jPasswordField1.getText());
+            logind = new LoginDAO();
+
+            // realizando autenticação
+            if (logind.autenticarLogin(login) == true) {
+                URL url = this.getClass().getResource("information-icon.png");
+                ImageIcon imgIcon = new ImageIcon(url);
+                JOptionPane.showMessageDialog(null, "<html>Sessão iniciada com <b>sucesso</b>!</html>", "Login válido", JOptionPane.INFORMATION_MESSAGE, imgIcon);
+
+                // buscando login no banco e enviando para proxima tela
+                login = logind.buscarPorUsuario(login.getUsuario_log());
+                framePrincipal(login);
+
+            } else {
+                URL url = this.getClass().getResource("error-icon.png");
+                ImageIcon imgIcon = new ImageIcon(url);
+                JOptionPane.showMessageDialog(null, "<html><b>Usuário</b> ou <b>senha</b> inválidos!</html>", "Login Inválido", JOptionPane.ERROR_MESSAGE, imgIcon);
+            }
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.net.URL;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -43,6 +45,15 @@ public class JFramePrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         personalizarTables();
+        iconeJanela();
+    }
+
+    // icone na barra
+    final void iconeJanela() {
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource("icone_janela.png");
+        Image icone = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(icone);
     }
 
     final void exibirNome() {
@@ -62,7 +73,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         this.login = log;
         this.usuario = usuariod.buscarPorLogin(this.login.getCod_log());
 
-        jLabelUsuarioName.setText(this.usuario.getNome_usu());
+        jLabelUsuarioName.setText(this.usuario.getNome_usu() + "     ");
         showResumo();
     }
 
@@ -71,6 +82,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabelResumo1.setText("" + filmed.qtdFilmes());
         jLabelResumo2.setText("" + filmed.qtdCriticas());
         jLabelResumo3.setText("" + filmed.mediaNotas());
+
+        jLabelResumoNome1.setText("Não Cadastrado");
+        jLabelResumoNome2.setText("Não Cadastrado");
+        jLabelResumoNome3.setText("Não Cadastrado");
+        jLabelResumoNome4.setText("Não Cadastrado");
 
         List<String> lista = filmed.filmesRecentes();
         if (lista.size() == 4) {
@@ -229,7 +245,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jPanelCardPai = new javax.swing.JPanel();
         jPanelDashboard = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanelResumo1 = new javax.swing.JPanel();
@@ -251,6 +266,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabelResumoImagem3 = new javax.swing.JLabel();
         jLabelResumoImagem4 = new javax.swing.JLabel();
         jLabelResumoNome4 = new javax.swing.JLabel();
+        jLabelUsuarioName = new javax.swing.JLabel();
         jPanelFilme = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -320,7 +336,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabelUsuarioName = new javax.swing.JLabel();
         jLabelMenuItem1 = new javax.swing.JLabel();
         jLabelMenuItem2 = new javax.swing.JLabel();
         jLabelMenuItem3 = new javax.swing.JLabel();
@@ -340,15 +355,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelCardPai.setLayout(new java.awt.CardLayout());
 
         jPanelDashboard.setBackground(new java.awt.Color(245, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cinelist/img/world.png"))); // NOI18N
-        jLabel5.setText("Conectado    ");
-        jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jLabel5.setOpaque(true);
-        jLabel5.setPreferredSize(new java.awt.Dimension(108, 27));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -523,11 +529,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jLabelResumoNome4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelResumoNome4.setText("Não Cadastrado");
 
+        jLabelUsuarioName.setBackground(new java.awt.Color(51, 51, 51));
+        jLabelUsuarioName.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabelUsuarioName.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelUsuarioName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelUsuarioName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cinelist/img/emoticon_tongue.png"))); // NOI18N
+        jLabelUsuarioName.setText("Usuário    ");
+        jLabelUsuarioName.setOpaque(true);
+
         javax.swing.GroupLayout jPanelDashboardLayout = new javax.swing.GroupLayout(jPanelDashboard);
         jPanelDashboard.setLayout(jPanelDashboardLayout);
         jPanelDashboardLayout.setHorizontalGroup(
             jPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelDashboardLayout.createSequentialGroup()
                 .addGroup(jPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDashboardLayout.createSequentialGroup()
@@ -562,11 +575,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanelResumo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 19, Short.MAX_VALUE))
+            .addComponent(jLabelUsuarioName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelDashboardLayout.setVerticalGroup(
             jPanelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDashboardLayout.createSequentialGroup()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelUsuarioName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1548,11 +1562,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
         jSeparator1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
 
-        jLabelUsuarioName.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabelUsuarioName.setForeground(new java.awt.Color(51, 51, 51));
-        jLabelUsuarioName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelUsuarioName.setText("Usuário");
-
         jLabelMenuItem1.setBackground(new java.awt.Color(255, 255, 255));
         jLabelMenuItem1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabelMenuItem1.setForeground(new java.awt.Color(51, 51, 51));
@@ -1683,7 +1692,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
                     .addGroup(jPanelMenuLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelUsuarioName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -1705,11 +1713,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jPanelMenuLayout.setVerticalGroup(
             jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelUsuarioName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2165,7 +2171,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

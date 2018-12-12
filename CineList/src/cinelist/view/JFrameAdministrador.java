@@ -13,6 +13,8 @@ import cinelist.model.Usuario;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -67,6 +69,7 @@ public class JFrameAdministrador extends javax.swing.JFrame {
         jTextFieldNomeUsuario.setText("");
         jTextFieldLoginUsuario.setText("");
         jPasswordFieldLoginSenha.setText("");
+        jLabelImagemUsuario.setText("X");
 
         listarUsuarios();
         listarTipos();
@@ -114,8 +117,8 @@ public class JFrameAdministrador extends javax.swing.JFrame {
         jComboBoxNomeUsuario = new javax.swing.JComboBox<>();
         jLabel30 = new javax.swing.JLabel();
         jLabelRemoverUsuario = new javax.swing.JLabel();
-        jLabelFotoUsuário = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        jLabelImagemUsuario = new javax.swing.JLabel();
+        jLabelCarregarImagem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Alterar Filme");
@@ -232,18 +235,26 @@ public class JFrameAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jLabelFotoUsuário.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelFotoUsuário.setFont(new java.awt.Font("Dialog", 0, 120)); // NOI18N
-        jLabelFotoUsuário.setForeground(new java.awt.Color(51, 51, 51));
-        jLabelFotoUsuário.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelFotoUsuário.setText("X");
-        jLabelFotoUsuário.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
-        jLabelFotoUsuário.setOpaque(true);
+        jLabelImagemUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelImagemUsuario.setFont(new java.awt.Font("Dialog", 0, 120)); // NOI18N
+        jLabelImagemUsuario.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelImagemUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelImagemUsuario.setText("X");
+        jLabelImagemUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 3));
+        jLabelImagemUsuario.setOpaque(true);
 
-        jLabel31.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("Foto Usuário");
+        jLabelCarregarImagem.setBackground(new java.awt.Color(102, 204, 255));
+        jLabelCarregarImagem.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelCarregarImagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCarregarImagem.setText("Imagem do Perfil");
+        jLabelCarregarImagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 2));
+        jLabelCarregarImagem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelCarregarImagem.setOpaque(true);
+        jLabelCarregarImagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelCarregarImagemMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,11 +273,11 @@ public class JFrameAdministrador extends javax.swing.JFrame {
                             .addComponent(jPasswordFieldLoginSenha)
                             .addComponent(jComboBoxTipoUsuario, 0, 250, Short.MAX_VALUE)
                             .addComponent(jLabel25))
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelFotoUsuário, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(52, 52, 52))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabelCarregarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelImagemUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,9 +326,9 @@ public class JFrameAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldLoginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelFotoUsuário, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelImagemUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel31)))
+                        .addComponent(jLabelCarregarImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(jLabel28)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -421,6 +432,10 @@ public class JFrameAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabelRemoverUsuarioMouseClicked
 
+    private void jLabelCarregarImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCarregarImagemMouseClicked
+       
+    }//GEN-LAST:event_jLabelCarregarImagemMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -472,10 +487,10 @@ public class JFrameAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabelCancelarUsuario;
+    private javax.swing.JLabel jLabelCarregarImagem;
     private javax.swing.JLabel jLabelEncerrarAdministrador;
-    private javax.swing.JLabel jLabelFotoUsuário;
+    private javax.swing.JLabel jLabelImagemUsuario;
     private javax.swing.JLabel jLabelRemoverUsuario;
     private javax.swing.JLabel jLabelSalvarFilme;
     private javax.swing.JPanel jPanel1;
